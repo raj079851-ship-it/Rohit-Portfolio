@@ -1,0 +1,11 @@
+﻿# Local tools & background runners
+.tools/
+serve.ps1
+start_server.bat
+
+# OS / Editor temporary files
+Thumbs.db
+.DS_Store
+*.log
+*.tmp
+Portfolio/

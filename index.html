@@ -1,0 +1,2181 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rohit Kumar | Data Analyst & BI Developer</title>
+  <meta name="description" content="Portfolio of Rohit Kumar - Data Analyst specializing in Python, SQL, Power BI, customer segmentation, and data storytelling." />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              dark: '#070b14',
+              surface: '#0d1322',
+              card: '#131b2e',
+              border: '#1f2b45',
+              cyan: '#06b6d4',
+              teal: '#14b8a6',
+              emerald: '#10b981',
+              violet: '#8b5cf6',
+              blue: '#3b82f6',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#060a12] text-slate-200 antialiased font-sans selection:bg-cyan-500 selection:text-white min-h-screen relative overflow-x-hidden">
+
+  <!-- Interactive Data Nodes Canvas Background -->
+  <canvas id="bg-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-40"></canvas>
+
+  <!-- Ambient Glow Blobs -->
+  <div class="fixed top-[-10%] left-[-5%] w-[500px] h-[500px] bg-cyan-600/15 rounded-full blur-[140px] pointer-events-none z-0"></div>
+  <div class="fixed top-[40%] right-[-10%] w-[600px] h-[600px] bg-violet-600/10 rounded-full blur-[160px] pointer-events-none z-0"></div>
+  <div class="fixed bottom-[-10%] left-[20%] w-[500px] h-[500px] bg-emerald-600/10 rounded-full blur-[150px] pointer-events-none z-0"></div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast" class="fixed bottom-28 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 px-5 py-3.5 rounded-xl bg-slate-900/95 border border-cyan-500/40 text-cyan-300 shadow-2xl backdrop-blur-md">
+    <i data-lucide="check-circle-2" class="w-5 h-5 text-cyan-400"></i>
+    <span id="toast-message" class="text-sm font-medium">Copied to clipboard!</span>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="fixed top-0 left-0 right-0 z-40 backdrop-blur-xl bg-[#060a12]/80 border-b border-slate-800/80 transition-all duration-300" id="navbar">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <!-- Logo / Name -->
+      <a href="#hero" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-violet-600 p-[1.5px] transition-transform group-hover:scale-105 duration-300 shadow-md shadow-cyan-500/20">
+          <img src="./file_00000000c80c820ba76b3e00df819d3e.png" alt="Rohit Kumar" class="w-full h-full object-cover object-top rounded-[10px]" />
+        </div>
+        <div class="flex flex-col">
+          <span class="font-bold text-base tracking-tight text-white group-hover:text-cyan-400 transition-colors">Rohit Kumar</span>
+          <span class="text-xs text-slate-400 font-mono tracking-wider flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            DATA ANALYST
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-1 bg-slate-900/60 p-1.5 rounded-full border border-slate-800/80 backdrop-blur-md">
+        <a href="#about" class="px-4 py-2 text-sm font-medium text-slate-300 hover:text-cyan-400 rounded-full hover:bg-slate-800/60 transition-all">About</a>
+        <a href="#projects" class="px-4 py-2 text-sm font-medium text-slate-300 hover:text-cyan-400 rounded-full hover:bg-slate-800/60 transition-all">Projects & Dashboards</a>
+        <a href="#experience" class="px-4 py-2 text-sm font-medium text-slate-300 hover:text-cyan-400 rounded-full hover:bg-slate-800/60 transition-all">Experience</a>
+        <a href="#skills" class="px-4 py-2 text-sm font-medium text-slate-300 hover:text-cyan-400 rounded-full hover:bg-slate-800/60 transition-all">Skills</a>
+        <a href="#certifications" class="px-4 py-2 text-sm font-medium text-slate-300 hover:text-cyan-400 rounded-full hover:bg-slate-800/60 transition-all">Certifications</a>
+        <a href="#contact" class="px-4 py-2 text-sm font-medium text-slate-300 hover:text-cyan-400 rounded-full hover:bg-slate-800/60 transition-all">Contact</a>
+      </nav>
+
+      <!-- Header Action Buttons -->
+      <div class="hidden lg:flex items-center gap-3 shrink-0">
+        <button onclick="openResumeModal()" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-xl border border-slate-700/80 bg-slate-800/60 text-slate-200 hover:border-cyan-500 hover:text-cyan-400 hover:bg-slate-800 transition-all shadow-sm whitespace-nowrap shrink-0">
+          <i data-lucide="file-text" class="w-4 h-4 text-cyan-400"></i>
+          <span>Resume PDF</span>
+        </button>
+        <a href="#contact" class="inline-flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-bold rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:-translate-y-0.5 transition-all whitespace-nowrap shrink-0">
+          <i data-lucide="send" class="w-4 h-4"></i>
+          <span>Hire Me</span>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-btn" aria-label="Toggle Menu" class="md:hidden p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-[#0a0f1d] border-b border-slate-800 px-6 py-6 space-y-4">
+      <a href="#about" class="block text-slate-300 hover:text-cyan-400 font-medium py-1">About</a>
+      <a href="#projects" class="block text-slate-300 hover:text-cyan-400 font-medium py-1">Projects & Dashboards</a>
+      <a href="#experience" class="block text-slate-300 hover:text-cyan-400 font-medium py-1">Experience</a>
+      <a href="#skills" class="block text-slate-300 hover:text-cyan-400 font-medium py-1">Skills</a>
+      <a href="#certifications" class="block text-slate-300 hover:text-cyan-400 font-medium py-1">Certifications</a>
+      <a href="#contact" class="block text-slate-300 hover:text-cyan-400 font-medium py-1">Contact</a>
+
+      <!-- Mobile Social Icons -->
+      <div class="pt-4 border-t border-slate-800">
+        <p class="text-xs font-mono text-slate-400 uppercase tracking-wider mb-3">Connect With Me</p>
+        <div class="flex items-center justify-center gap-2.5 flex-wrap">
+          <!-- Gmail -->
+          <a href="mailto:raj079851@gmail.com" class="social-glow-btn glow-gmail w-10 h-10" title="Email: raj079851@gmail.com">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
+            </svg>
+          </a>
+          <a href="https://github.com/raj079851-ship-it" target="_blank" rel="noopener noreferrer" class="social-glow-btn glow-github w-10 h-10" title="GitHub">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/>
+            </svg>
+          </a>
+          <a href="https://www.linkedin.com/in/rohit-kumar-221a6327a" target="_blank" rel="noopener noreferrer" class="social-glow-btn glow-linkedin w-10 h-10" title="LinkedIn">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28z"/>
+            </svg>
+          </a>
+          <a href="https://wa.me/918210916738" target="_blank" rel="noopener noreferrer" class="social-glow-btn glow-whatsapp w-10 h-10" title="WhatsApp">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.41a8.21 8.21 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.41-1.75-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.34-.76-1.84-.2-.49-.4-.42-.56-.43l-.47-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.78 2.71 4.3 3.8.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.1-.22-.16-.47-.29z"/></svg>
+          </a>
+          <a href="https://x.com/RohitKumar75375" target="_blank" rel="noopener noreferrer" class="social-glow-btn glow-twitter w-10 h-10" title="Twitter / X">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/i_am_rooohit?stkn=c2E5ZXZhMnlidm82" target="_blank" rel="noopener noreferrer" class="social-glow-btn glow-instagram w-10 h-10" title="Instagram">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+          </a>
+          <a href="https://www.facebook.com/share/19cBY2ymWj/" target="_blank" rel="noopener noreferrer" class="social-glow-btn glow-facebook w-10 h-10" title="Facebook">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="pt-2 flex flex-col gap-3">
+        <a href="./Resume.pdf" target="_blank" download="Rohit_Kumar_Resume.pdf" class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-800 text-slate-200">
+          <i data-lucide="file-text" class="w-4 h-4"></i> View / Download Resume
+        </a>
+        <a href="#contact" class="flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold shadow-lg shadow-cyan-500/25">
+          <i data-lucide="send" class="w-4 h-4"></i> Hire Me
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Wrapper -->
+  <main class="relative z-10 pt-20">
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="min-h-[92vh] flex items-center justify-center relative py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto w-full">
+        
+        <!-- 2-Column Hero Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center mb-16">
+          
+          <!-- Left Column: Bio, Headline, CTAs -->
+          <div class="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
+            
+            <!-- Live Status Pill -->
+            <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs sm:text-sm font-mono backdrop-blur-md">
+              <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <span>Available for Data Analyst & Business Intelligence Roles</span>
+            </div>
+
+            <!-- Name & Main Headline -->
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.08]">
+              Hi, I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-blue-500">Rohit Kumar</span>
+            </h1>
+
+            <!-- Animated Typing Subheading -->
+            <div class="text-xl sm:text-2xl font-medium text-slate-300 h-10 flex items-center justify-center lg:justify-start">
+              <span>I transform data into&nbsp;</span>
+              <span id="typed-text" class="text-cyan-400 font-mono font-semibold border-b-2 border-cyan-400"></span>
+            </div>
+
+            <!-- Bio Brief -->
+            <p class="max-w-2xl text-slate-400 text-base sm:text-lg leading-relaxed">
+              Data Analyst experienced in <span class="text-white font-medium">Python, SQL, Power BI, and Excel</span>. 
+              Specialized in data cleaning, KPI reporting, customer segmentation, and crafting interactive dashboards 
+              that empower executive decision-making.
+            </p>
+
+            <!-- CTAs -->
+            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+              <a href="#projects" class="group px-7 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold flex items-center gap-2.5 shadow-xl shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:-translate-y-0.5 transition-all">
+                <span>Explore Live Dashboards</span>
+                <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+              </a>
+              <button onclick="openResumeModal()" class="px-7 py-3.5 rounded-xl border border-slate-700 bg-slate-900/80 hover:bg-slate-800 text-slate-200 font-semibold flex items-center gap-2.5 hover:border-cyan-500 transition-all">
+                <i data-lucide="file-text" class="w-4 h-4 text-cyan-400"></i>
+                <span>View Resume PDF</span>
+              </button>
+            </div>
+
+            <!-- Social Media Links (Glowing & Separated) -->
+            <div class="pt-3 flex flex-wrap items-center justify-center lg:justify-start gap-3">
+              <span class="text-xs font-mono text-slate-300 uppercase tracking-wider flex items-center gap-1.5 mr-1 font-semibold">
+                <span class="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#22d3ee] animate-pulse"></span>
+                Connect With Me:
+              </span>
+
+              <!-- Gmail -->
+              <a href="mailto:raj079851@gmail.com" class="social-glow-btn glow-gmail w-11 h-11" title="Email: raj079851@gmail.com">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
+                </svg>
+              </a>
+
+              <!-- GitHub -->
+              <a href="https://github.com/raj079851-ship-it" target="_blank" rel="noopener noreferrer" class="social-glow-btn glow-github w-11 h-11" title="GitHub">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/>
+                </svg>
+              </a>
+
+              <!-- LinkedIn -->
+              <a href="https://www.linkedin.com/in/rohit-kumar-221a6327a" target="_blank" rel="noopener noreferrer" class="social-glow-btn glow-linkedin w-11 h-11" title="LinkedIn">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28z"/>
+                </svg>
+              </a>
+
+              <!-- WhatsApp -->
+              <a href="https://wa.me/918210916738" target="_blank" rel="noopener noreferrer" class="social-glow-btn glow-whatsapp w-11 h-11" title="WhatsApp (+91 8210916738)">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.41a8.21 8.21 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.41-1.75-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.34-.76-1.84-.2-.49-.4-.42-.56-.43l-.47-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.78 2.71 4.3 3.8.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.1-.22-.16-.47-.29z"/></svg>
+              </a>
+
+              <!-- Twitter / X -->
+              <a href="https://x.com/RohitKumar75375" target="_blank" rel="noopener noreferrer" class="social-glow-btn glow-twitter w-11 h-11" title="Twitter / X">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </a>
+
+              <!-- Instagram -->
+              <a href="https://www.instagram.com/i_am_rooohit?stkn=c2E5ZXZhMnlidm82" target="_blank" rel="noopener noreferrer" class="social-glow-btn glow-instagram w-11 h-11" title="Instagram">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+              </a>
+
+              <!-- Facebook -->
+              <a href="https://www.facebook.com/share/19cBY2ymWj/" target="_blank" rel="noopener noreferrer" class="social-glow-btn glow-facebook w-11 h-11" title="Facebook">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Column: Profile Photo in Circle (No tags, exact same location, background matching portfolio) -->
+          <div class="lg:col-span-5 flex justify-center lg:justify-end items-center">
+            <div class="relative group w-64 sm:w-80 md:w-96 lg:w-[400px] xl:w-[420px]">
+              
+              <!-- Ambient Cyber Glow Blobs Behind Portrait -->
+              <div class="absolute -top-8 -right-8 w-64 h-64 bg-cyan-500/25 rounded-full blur-[90px] pointer-events-none"></div>
+              <div class="absolute -bottom-8 -left-8 w-64 h-64 bg-violet-600/25 rounded-full blur-[90px] pointer-events-none"></div>
+
+              <!-- Outer Subtle Gradient Halo Accent -->
+              <div class="absolute -inset-2 rounded-full bg-gradient-to-tr from-cyan-500/30 via-transparent to-violet-500/30 blur-md opacity-60 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+
+              <!-- Main Circular Profile Photo Showcase -->
+              <div class="hero-portrait-circle">
+                <img 
+                  src="./file_00000000c80c820ba76b3e00df819d3e.png" 
+                  alt="Rohit Kumar - Data Analyst" 
+                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  style="object-position: center 20%;"
+                />
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Metric KPI Highlight Bar -->
+        <div class="w-full grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 pt-8 border-t border-slate-800/80">
+          
+          <div class="kpi-card p-5 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-cyan-500/40 transition-all backdrop-blur-sm group text-left">
+            <div class="text-xs font-mono text-slate-400 uppercase tracking-wider mb-1 flex items-center justify-between">
+              <span>Superstore Sales</span>
+              <i data-lucide="trending-up" class="w-4 h-4 text-cyan-400"></i>
+            </div>
+            <div class="text-2xl sm:text-3xl font-extrabold text-white font-mono flex items-baseline">
+              $<span class="counter" data-target="2.26" data-decimals="2">0</span>M
+            </div>
+            <div class="text-xs text-emerald-400 font-medium mt-1">10.0% Profit Margin</div>
+          </div>
+
+          <div class="kpi-card p-5 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-cyan-500/40 transition-all backdrop-blur-sm group text-left">
+            <div class="text-xs font-mono text-slate-400 uppercase tracking-wider mb-1 flex items-center justify-between">
+              <span>RFM Revenue Scope</span>
+              <i data-lucide="database" class="w-4 h-4 text-violet-400"></i>
+            </div>
+            <div class="text-2xl sm:text-3xl font-extrabold text-white font-mono flex items-baseline">
+              <span class="counter" data-target="681" data-decimals="0">0</span>M
+            </div>
+            <div class="text-xs text-slate-400 font-medium mt-1">250K Orders Evaluated</div>
+          </div>
+
+          <div class="kpi-card p-5 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-cyan-500/40 transition-all backdrop-blur-sm group text-left">
+            <div class="text-xs font-mono text-slate-400 uppercase tracking-wider mb-1 flex items-center justify-between">
+              <span>Records Cleaned</span>
+              <i data-lucide="layers" class="w-4 h-4 text-teal-400"></i>
+            </div>
+            <div class="text-2xl sm:text-3xl font-extrabold text-white font-mono flex items-baseline">
+              <span class="counter" data-target="50" data-decimals="0">0</span>K+
+            </div>
+            <div class="text-xs text-cyan-400 font-medium mt-1">Unstructured to Insights</div>
+          </div>
+
+          <div class="kpi-card p-5 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-cyan-500/40 transition-all backdrop-blur-sm group text-left">
+            <div class="text-xs font-mono text-slate-400 uppercase tracking-wider mb-1 flex items-center justify-between">
+              <span>Customer Base</span>
+              <i data-lucide="users" class="w-4 h-4 text-emerald-400"></i>
+            </div>
+            <div class="text-2xl sm:text-3xl font-extrabold text-white font-mono flex items-baseline">
+              <span class="counter" data-target="50" data-decimals="0">0</span>K
+            </div>
+            <div class="text-xs text-violet-400 font-medium mt-1">Segmented & Analyzed</div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+      <div class="space-y-8">
+        
+        <!-- Summary & Personal Snapshot -->
+        <div class="space-y-6 max-w-4xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 font-mono text-xs uppercase tracking-wider">
+            <i data-lucide="user" class="w-3.5 h-3.5"></i>
+            Professional Summary
+          </div>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight">
+            Bridging Raw Data and Executive Strategy Through <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-300">Actionable Analytics</span>
+          </h2>
+          <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+            I am a Data Analyst with hands-on proficiency in <strong class="text-white">Python, SQL, Power BI, and Excel</strong>. My core expertise lies in data cleaning, exploratory data analysis (EDA), KPI reporting, customer segmentation, and dashboard architecture.
+          </p>
+          <p class="text-slate-400 text-base leading-relaxed">
+            With practical internship experience at <span class="text-cyan-300 font-medium">Alfido Tech</span> and an academic foundation in <span class="text-cyan-300 font-medium">Artificial Intelligence & Data Science</span>, I focus on transforming unstructured, multi-variable datasets into robust, interactive analytical tools that optimize operational efficiency and customer retention.
+          </p>
+        </div>
+
+        <!-- Core Value Highlights Across Full Width -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 pt-2">
+          <div class="flex flex-col gap-3.5 p-5 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 transition-all backdrop-blur-sm group">
+            <div class="w-11 h-11 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 flex items-center justify-center group-hover:scale-105 transition-transform">
+              <i data-lucide="filter" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h4 class="text-white font-semibold text-base">Data Wrangling & EDA</h4>
+              <p class="text-slate-400 text-xs mt-1.5 leading-relaxed">Pandas & NumPy pipelines cleaning complex datasets with speed, schema validation, and outlier handling.</p>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-3.5 p-5 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-emerald-500/40 transition-all backdrop-blur-sm group">
+            <div class="w-11 h-11 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center group-hover:scale-105 transition-transform">
+              <i data-lucide="pie-chart" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h4 class="text-white font-semibold text-base">Interactive BI Dashboards</h4>
+              <p class="text-slate-400 text-xs mt-1.5 leading-relaxed">Power BI with DAX and Power Query for dynamic executive visibility and cross-filtering KPI reports.</p>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-3.5 p-5 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-violet-500/40 transition-all backdrop-blur-sm group">
+            <div class="w-11 h-11 rounded-xl bg-violet-500/10 text-violet-400 border border-violet-500/20 flex items-center justify-center group-hover:scale-105 transition-transform">
+              <i data-lucide="target" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h4 class="text-white font-semibold text-base">RFM & Segmentation</h4>
+              <p class="text-slate-400 text-xs mt-1.5 leading-relaxed">Targeted cohorting to isolate at-risk churn (20%) and high-value champions for targeted retention.</p>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-3.5 p-5 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-blue-500/40 transition-all backdrop-blur-sm group">
+            <div class="w-11 h-11 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 flex items-center justify-center group-hover:scale-105 transition-transform">
+              <i data-lucide="database" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h4 class="text-white font-semibold text-base">Advanced SQL Mastery</h4>
+              <p class="text-slate-400 text-xs mt-1.5 leading-relaxed">PostgreSQL & MySQL using CTEs, Window Functions, and subqueries to extract relational datasets.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- LIVE PROJECTS & DASHBOARDS SECTION -->
+    <section id="projects" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      
+      <!-- Section Title Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 font-mono text-xs uppercase tracking-wider mb-4">
+          <i data-lucide="bar-chart-3" class="w-3.5 h-3.5"></i>
+          Interactive Analytics Showcase
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+          Featured Analytical Projects & Dashboards
+        </h2>
+        <p class="text-slate-400 mt-4 text-base sm:text-lg">
+          Explore live, interactive visualizations simulated from my actual project analyses—complete with dynamic metric toggles, cohort breakdowns, and business insights.
+        </p>
+      </div>
+
+      <!-- Project 1: Customer Behavior & RFM Segmentation Analysis -->
+      <div class="mb-20 p-6 sm:p-10 rounded-3xl bg-slate-900/60 border border-slate-800/90 shadow-2xl backdrop-blur-xl relative overflow-hidden group">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- Project Info Left -->
+          <div class="lg:col-span-5 space-y-5">
+            <div class="flex items-center gap-2 text-xs font-mono text-cyan-400 uppercase tracking-wider">
+              <i data-lucide="users" class="w-4 h-4"></i>
+              Customer Intelligence & Retention
+            </div>
+            
+            <h3 class="text-2xl sm:text-3xl font-bold text-white leading-snug">
+              Customer Behavior & RFM Segmentation Analysis
+            </h3>
+            
+            <div class="flex flex-wrap gap-2 pt-1">
+              <span class="px-2.5 py-1 rounded-md bg-slate-800 text-cyan-300 font-mono text-xs border border-cyan-500/20">Python</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-800 text-teal-300 font-mono text-xs border border-teal-500/20">Pandas</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-800 text-blue-300 font-mono text-xs border border-blue-500/20">NumPy</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-800 text-violet-300 font-mono text-xs border border-violet-500/20">Matplotlib</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-800 text-pink-300 font-mono text-xs border border-pink-500/20">Seaborn</span>
+            </div>
+
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+              Analyzed a comprehensive retail dataset encompassing <span class="text-white font-semibold">50K customers</span>, <span class="text-white font-semibold">250K orders</span>, and <span class="text-white font-semibold">681M in revenue</span> using Python, Pandas, and NumPy to identify purchasing patterns, category-level behavior, and a <span class="text-rose-400 font-semibold">20.0% churn rate</span>.
+            </p>
+
+            <!-- Key Insight Callouts -->
+            <div class="space-y-3 pt-2">
+              <div class="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 flex items-start gap-3">
+                <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></i>
+                <div class="text-xs text-slate-300 leading-relaxed">
+                  <strong class="text-white">RFM Scoring Model:</strong> Applied Recency, Frequency, and Monetary mathematical scoring to isolate high-value Champions (top 18%) vs at-risk churn segments.
+                </div>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 flex items-start gap-3">
+                <i data-lucide="check-circle" class="w-5 h-5 text-cyan-400 shrink-0 mt-0.5"></i>
+                <div class="text-xs text-slate-300 leading-relaxed">
+                  <strong class="text-white">Targeted Retention Strategy:</strong> Formulated actionable re-engagement campaigns to address the 20% churn group, preserving revenue loss.
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Action Links & Glowing Project Attachments -->
+            <div class="space-y-3 pt-2">
+              <div class="flex items-center gap-2.5 flex-wrap">
+                <button onclick="switchRfmView('segments')" id="btn-rfm-segments" class="px-4 py-2 rounded-xl bg-cyan-500 text-slate-950 font-bold text-xs shadow-md transition-all">
+                  Cohort Breakdown
+                </button>
+                <button onclick="switchRfmView('churn')" id="btn-rfm-churn" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white font-semibold text-xs border border-slate-700 transition-all">
+                  Churn vs Retention
+                </button>
+              </div>
+
+              <!-- Project 1 Glowing Attachments -->
+              <div class="flex items-center gap-2.5 flex-wrap pt-1">
+                <a href="https://lnkd.in/dVCJ4CJi" target="_blank" rel="noopener noreferrer" class="social-glow-btn glow-github px-3.5 py-2 flex items-center gap-2 text-xs font-semibold shadow-sm" title="View Project Source Code on GitHub">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/>
+                  </svg>
+                  <span>GitHub Code</span>
+                  <i data-lucide="external-link" class="w-3.5 h-3.5 opacity-70"></i>
+                </a>
+
+                <a href="https://lnkd.in/p/drZPqhwS" target="_blank" rel="noopener noreferrer" class="social-glow-btn glow-linkedin px-3.5 py-2 flex items-center gap-2 text-xs font-semibold shadow-sm" title="View Project on LinkedIn">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28z"/>
+                  </svg>
+                  <span>LinkedIn Post</span>
+                  <i data-lucide="external-link" class="w-3.5 h-3.5 opacity-70"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Live Chart Right -->
+          <div class="lg:col-span-7 bg-[#0b1120] p-6 rounded-2xl border border-slate-800 shadow-inner">
+            <div class="flex flex-wrap items-center justify-between pb-4 mb-4 border-b border-slate-800 gap-3">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                <h4 id="rfm-chart-title" class="text-sm font-semibold text-white">Live RFM Segmentation Distribution</h4>
+              </div>
+              <div class="text-xs font-mono text-slate-400">
+                Dataset: <span class="text-cyan-400 font-semibold">50K Customers / 681M Rev</span>
+              </div>
+            </div>
+
+            <!-- Live Chart Container -->
+            <div class="relative h-72 sm:h-80 w-full">
+              <canvas id="rfmChart"></canvas>
+            </div>
+
+            <!-- Dynamic Bottom Stats Ribbon -->
+            <div class="grid grid-cols-3 gap-2 mt-4 pt-4 border-t border-slate-800/80 text-center font-mono">
+              <div class="p-2 rounded-lg bg-slate-900/80 border border-slate-800">
+                <div class="text-[10px] text-slate-400 uppercase">Total Customers</div>
+                <div class="text-sm sm:text-base font-bold text-cyan-300">50,000</div>
+              </div>
+              <div class="p-2 rounded-lg bg-slate-900/80 border border-slate-800">
+                <div class="text-[10px] text-slate-400 uppercase">Churn Rate</div>
+                <div class="text-sm sm:text-base font-bold text-rose-400">20.0%</div>
+              </div>
+              <div class="p-2 rounded-lg bg-slate-900/80 border border-slate-800">
+                <div class="text-[10px] text-slate-400 uppercase">Total Revenue</div>
+                <div class="text-sm sm:text-base font-bold text-emerald-400">681M</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Project 2: Sales Performance Analysis (Superstore Dataset) -->
+      <div class="p-6 sm:p-10 rounded-3xl bg-slate-900/60 border border-slate-800/90 shadow-2xl backdrop-blur-xl relative overflow-hidden group">
+        <div class="absolute top-0 left-0 w-96 h-96 bg-violet-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- Interactive Live Chart Left -->
+          <div class="lg:col-span-7 bg-[#0b1120] p-6 rounded-2xl border border-slate-800 shadow-inner order-2 lg:order-1">
+            <div class="flex flex-wrap items-center justify-between pb-4 mb-4 border-b border-slate-800 gap-3">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <h4 id="sales-chart-title" class="text-sm font-semibold text-white">Superstore Regional Sales & Profit ($M)</h4>
+              </div>
+              <!-- Regional Toggle Buttons -->
+              <div class="flex items-center gap-1.5 text-xs">
+                <button onclick="filterRegionChart('all')" id="btn-reg-all" class="px-2.5 py-1 rounded bg-cyan-500 text-slate-950 font-bold text-xs">All</button>
+                <button onclick="filterRegionChart('West')" id="btn-reg-west" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs">West ★</button>
+                <button onclick="filterRegionChart('East')" id="btn-reg-east" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs">East</button>
+                <button onclick="filterRegionChart('Central')" id="btn-reg-central" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs">Central</button>
+                <button onclick="filterRegionChart('South')" id="btn-reg-south" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs">South</button>
+              </div>
+            </div>
+
+            <!-- Live Chart Canvas -->
+            <div class="relative h-72 sm:h-80 w-full">
+              <canvas id="salesChart"></canvas>
+            </div>
+
+            <!-- Detailed Metrics Strip -->
+            <div class="grid grid-cols-4 gap-2 mt-4 pt-4 border-t border-slate-800/80 text-center font-mono">
+              <div class="p-2 rounded-lg bg-slate-900/80 border border-slate-800">
+                <div class="text-[10px] text-slate-400">Total Sales</div>
+                <div class="text-xs sm:text-sm font-bold text-white">$2.26M</div>
+              </div>
+              <div class="p-2 rounded-lg bg-slate-900/80 border border-slate-800">
+                <div class="text-[10px] text-slate-400">Total Profit</div>
+                <div class="text-xs sm:text-sm font-bold text-emerald-400">$226.2K</div>
+              </div>
+              <div class="p-2 rounded-lg bg-slate-900/80 border border-slate-800">
+                <div class="text-[10px] text-slate-400">Margin</div>
+                <div class="text-xs sm:text-sm font-bold text-cyan-300">10.0%</div>
+              </div>
+              <div class="p-2 rounded-lg bg-slate-900/80 border border-slate-800">
+                <div class="text-[10px] text-slate-400">Avg Order</div>
+                <div class="text-xs sm:text-sm font-bold text-violet-300">$459.48</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project Info Right -->
+          <div class="lg:col-span-5 space-y-5 order-1 lg:order-2">
+            <div class="flex items-center gap-2 text-xs font-mono text-emerald-400 uppercase tracking-wider">
+              <i data-lucide="trending-up" class="w-4 h-4"></i>
+              Executive Business Intelligence
+            </div>
+            
+            <h3 class="text-2xl sm:text-3xl font-bold text-white leading-snug">
+              Sales Performance Analysis (Superstore Dataset)
+            </h3>
+            
+            <div class="flex flex-wrap gap-2 pt-1">
+              <span class="px-2.5 py-1 rounded-md bg-slate-800 text-yellow-300 font-mono text-xs border border-yellow-500/20">Power BI</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-800 text-cyan-300 font-mono text-xs border border-cyan-500/20">Python</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-800 text-teal-300 font-mono text-xs border border-teal-500/20">Pandas</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-800 text-violet-300 font-mono text-xs border border-violet-500/20">DAX</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-800 text-pink-300 font-mono text-xs border border-pink-500/20">Seaborn</span>
+            </div>
+
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+              Analyzed <span class="text-white font-semibold">$2.26M in total sales</span> and <span class="text-white font-semibold">$226.2K profit</span>, establishing a 10.0% profit margin and $459.48 average order value across national territories.
+            </p>
+
+            <div class="space-y-3 pt-2">
+              <div class="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 flex items-start gap-3">
+                <i data-lucide="award" class="w-5 h-5 text-yellow-400 shrink-0 mt-0.5"></i>
+                <div class="text-xs text-slate-300 leading-relaxed">
+                  <strong class="text-white">West Region Supremacy:</strong> Identified the West as the primary revenue and profit driver (<strong class="text-cyan-400">$0.71M sales, $71K profit</strong>), unlocking resource allocation insights.
+                </div>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 flex items-start gap-3">
+                <i data-lucide="layout-dashboard" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></i>
+                <div class="text-xs text-slate-300 leading-relaxed">
+                  <strong class="text-white">Interactive Power BI Dashboards:</strong> Designed multi-level drill-throughs covering regional heatmaps, category profitability, state-by-state demand, and top-selling SKUs.
+                </div>
+              </div>
+            </div>
+
+            <!-- Project 2 Attachments with Glowing Icons & Request Walkthrough -->
+            <div class="space-y-3 pt-2">
+              <div class="flex items-center gap-2.5 flex-wrap">
+                <a href="https://lnkd.in/dMvV-F4n" target="_blank" rel="noopener noreferrer" class="social-glow-btn glow-github px-3.5 py-2 flex items-center gap-2 text-xs font-semibold shadow-sm" title="View Superstore Analysis Source Code on GitHub">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/>
+                  </svg>
+                  <span>GitHub Code</span>
+                  <i data-lucide="external-link" class="w-3.5 h-3.5 opacity-70"></i>
+                </a>
+
+                <a href="https://lnkd.in/p/dq4HRu3Z" target="_blank" rel="noopener noreferrer" class="social-glow-btn glow-linkedin px-3.5 py-2 flex items-center gap-2 text-xs font-semibold shadow-sm" title="View Superstore Project on LinkedIn">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28z"/>
+                  </svg>
+                  <span>LinkedIn Post</span>
+                  <i data-lucide="external-link" class="w-3.5 h-3.5 opacity-70"></i>
+                </a>
+              </div>
+
+              <div>
+                <a href="#contact" class="inline-flex items-center gap-2 text-xs font-semibold text-cyan-400 hover:text-cyan-300 transition-colors">
+                  <span>Request Detailed Project Walkthrough</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- EXPERIENCE & EDUCATION SECTION -->
+    <section id="experience" class="py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-mono text-xs uppercase tracking-wider mb-4">
+          <i data-lucide="briefcase" class="w-3.5 h-3.5"></i>
+          Career Journey
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+          Work Experience & Education
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        
+        <!-- Work Experience Column -->
+        <div class="space-y-6">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+              <i data-lucide="briefcase" class="w-5 h-5"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-white">Work Experience</h3>
+          </div>
+
+          <!-- Experience Card -->
+          <div class="relative p-6 sm:p-7 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-cyan-500/40 transition-all backdrop-blur-md">
+            <div class="flex flex-wrap items-baseline justify-between gap-2 mb-3">
+              <div>
+                <h4 class="text-xl font-bold text-white">Data Analyst Intern</h4>
+                <div class="text-cyan-400 font-semibold text-sm">Alfido Tech</div>
+              </div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-mono font-medium bg-rose-500/10 border border-rose-500/30 text-rose-300">
+                  <i data-lucide="file-text" class="w-3 h-3 text-rose-400"></i> PDF
+                </span>
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-mono font-medium bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Verified
+                </span>
+                <span class="px-3 py-1 rounded-full bg-slate-800 text-slate-300 font-mono text-xs border border-slate-700">
+                  Aug 2026 – Sep 2026
+                </span>
+              </div>
+            </div>
+
+            <p class="text-xs text-slate-400 mb-4 font-mono">
+              Domain: End-to-End Pipelines & Stakeholder Reporting
+            </p>
+
+            <ul class="space-y-3.5 text-sm text-slate-300">
+              <li class="flex items-start gap-3">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-2 shrink-0"></span>
+                <span>
+                  <strong class="text-white">Standardized Data Pipelines:</strong> Spearheaded end-to-end data pipelines across 2 multi-variable business datasets, standardizing raw files to improve reporting consistency and data reliability.
+                </span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="w-1.5 h-1.5 rounded-full bg-teal-400 mt-2 shrink-0"></span>
+                <span>
+                  <strong class="text-white">Cleaned 50,000+ Records:</strong> Cleaned, transformed, and validated 50,000+ unstructured records using Python (Pandas, NumPy), cutting manual data preprocessing overhead significantly.
+                </span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-2 shrink-0"></span>
+                <span>
+                  <strong class="text-white">Executive Power BI Dashboards:</strong> Built 2+ interactive Power BI dashboards monitoring core KPIs across sales performance, customer engagement, and web metrics to support stakeholder decision-making.
+                </span>
+              </li>
+            </ul>
+
+            <!-- Tech Tags -->
+            <div class="flex flex-wrap gap-2 mt-6 pt-4 border-t border-slate-800">
+              <span class="px-2.5 py-0.5 rounded bg-slate-800/80 text-cyan-400 font-mono text-xs">Python</span>
+              <span class="px-2.5 py-0.5 rounded bg-slate-800/80 text-cyan-400 font-mono text-xs">Pandas</span>
+              <span class="px-2.5 py-0.5 rounded bg-slate-800/80 text-cyan-400 font-mono text-xs">NumPy</span>
+              <span class="px-2.5 py-0.5 rounded bg-slate-800/80 text-cyan-400 font-mono text-xs">Power BI</span>
+              <span class="px-2.5 py-0.5 rounded bg-slate-800/80 text-cyan-400 font-mono text-xs">Data Pipelines</span>
+            </div>
+
+            <!-- Verified Internship Certificate PDF Attachment -->
+            <div class="mt-5 p-4 rounded-xl bg-slate-950/60 border border-slate-800/90 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <div class="p-2.5 rounded-lg bg-rose-500/10 text-rose-400 border border-rose-500/20 shrink-0">
+                  <i data-lucide="file-text" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <div class="text-xs font-bold text-white">Alfido Tech Internship Certificate</div>
+                  <div class="text-[11px] text-slate-400 font-mono flex items-center gap-1.5 mt-0.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                    Verified PDF Credential
+                  </div>
+                </div>
+              </div>
+              <a href="https://drive.google.com/file/d/1Nph_YHfDdMyU8ZSmQ7YWye-nCRompt_M/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-xs transition-all shadow-md shadow-cyan-500/20 hover:shadow-cyan-500/40 shrink-0 group/cert">
+                <i data-lucide="file-text" class="w-4 h-4 text-white"></i>
+                <span>View Certificate PDF</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5 group-hover/cert:translate-x-0.5 group-hover/cert:-translate-y-0.5 transition-transform"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Education Column -->
+        <div class="space-y-6">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="p-2.5 rounded-xl bg-violet-500/10 text-violet-400 border border-violet-500/20">
+              <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-white">Education</h3>
+          </div>
+
+          <!-- Education Card -->
+          <div class="relative p-6 sm:p-7 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-violet-500/40 transition-all backdrop-blur-md">
+            <div class="flex flex-wrap items-baseline justify-between gap-2 mb-3">
+              <div>
+                <h4 class="text-xl font-bold text-white">Bachelor of Technology</h4>
+                <div class="text-violet-400 font-semibold text-sm">Artificial Intelligence & Data Science</div>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-slate-800 text-slate-300 font-mono text-xs border border-slate-700">
+                2023 – 2027
+              </span>
+            </div>
+
+            <div class="text-slate-300 font-medium text-sm mb-4">
+              IIMT College of Engineering
+            </div>
+
+            <!-- Grade Badge -->
+            <div class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-sm mb-6">
+              <i data-lucide="award" class="w-4 h-4"></i>
+              <span>Current CGPA: <strong>7.0 / 10.0</strong></span>
+            </div>
+
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">
+              Curriculum focused on core machine learning algorithms, database management systems (RDBMS), statistical modeling, data structures, and enterprise data analytics.
+            </p>
+
+            <div class="space-y-2 text-xs font-mono text-slate-400 border-t border-slate-800 pt-4">
+              <div class="flex justify-between">
+                <span>Specialization:</span>
+                <span class="text-white">AI & Big Data Analytics</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Core Focus:</span>
+                <span class="text-white">Predictive Modeling & Statistical Computing</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- TECHNICAL SKILLS MATRIX -->
+    <section id="skills" class="py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 font-mono text-xs uppercase tracking-wider mb-4">
+          <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
+          Technical Expertise
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+          Skills & Analytical Toolkit
+        </h2>
+        <p class="text-slate-400 mt-4 text-base sm:text-lg">
+          A comprehensive suite of technologies, databases, and analytical methods applied to real-world datasets.
+        </p>
+      </div>
+
+      <!-- Skills Grid (4 Categories from Resume) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Category 1: Languages & Databases -->
+        <div class="p-6 sm:p-7 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 transition-all backdrop-blur-md">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+              <i data-lucide="database" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-white">Languages & Databases</h3>
+              <p class="text-xs text-slate-400 font-mono">Relational Engines & Computational Scripting</p>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between text-xs font-mono mb-1.5">
+                <span class="text-slate-200 font-semibold">SQL (PostgreSQL, MySQL)</span>
+                <span class="text-cyan-400">92%</span>
+              </div>
+              <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+                <div class="h-full rounded-full bg-gradient-to-r from-cyan-500 to-blue-500" style="width: 92%"></div>
+              </div>
+              <p class="text-[11px] text-slate-400 mt-1 font-mono">Joins, CTEs, Window Functions, Subqueries, Aggregations</p>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs font-mono mb-1.5">
+                <span class="text-slate-200 font-semibold">Python (Pandas, NumPy)</span>
+                <span class="text-cyan-400">88%</span>
+              </div>
+              <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+                <div class="h-full rounded-full bg-gradient-to-r from-cyan-500 to-teal-400" style="width: 88%"></div>
+              </div>
+              <p class="text-[11px] text-slate-400 mt-1 font-mono">Data manipulation, vectorized calculations, pipeline automation</p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-2 mt-6 pt-4 border-t border-slate-800">
+            <span class="skill-tag">PostgreSQL</span>
+            <span class="skill-tag">MySQL</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">Pandas</span>
+            <span class="skill-tag">NumPy</span>
+            <span class="skill-tag">Window Functions</span>
+            <span class="skill-tag">CTEs</span>
+          </div>
+        </div>
+
+        <!-- Category 2: Data Analysis & Visualization -->
+        <div class="p-6 sm:p-7 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-emerald-500/40 transition-all backdrop-blur-md">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-white">Data Analysis & Visualization</h3>
+              <p class="text-xs text-slate-400 font-mono">Business Intelligence & Visual Reporting</p>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between text-xs font-mono mb-1.5">
+                <span class="text-slate-200 font-semibold">Power BI (DAX, Power Query)</span>
+                <span class="text-emerald-400">90%</span>
+              </div>
+              <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+                <div class="h-full rounded-full bg-gradient-to-r from-emerald-500 to-teal-400" style="width: 90%"></div>
+              </div>
+              <p class="text-[11px] text-slate-400 mt-1 font-mono">Data modeling, star schema, dynamic measure creation, KPI cards</p>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs font-mono mb-1.5">
+                <span class="text-slate-200 font-semibold">MS Excel & Advanced EDA Visuals</span>
+                <span class="text-emerald-400">85%</span>
+              </div>
+              <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+                <div class="h-full rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500" style="width: 85%"></div>
+              </div>
+              <p class="text-[11px] text-slate-400 mt-1 font-mono">Pivot Tables, Lookup Functions, Matplotlib, Seaborn distributions</p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-2 mt-6 pt-4 border-t border-slate-800">
+            <span class="skill-tag">Power BI</span>
+            <span class="skill-tag">DAX</span>
+            <span class="skill-tag">Power Query</span>
+            <span class="skill-tag">Data Modeling</span>
+            <span class="skill-tag">MS Excel</span>
+            <span class="skill-tag">Matplotlib</span>
+            <span class="skill-tag">Seaborn</span>
+          </div>
+        </div>
+
+        <!-- Category 3: Tools & Platforms -->
+        <div class="p-6 sm:p-7 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-violet-500/40 transition-all backdrop-blur-md">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="p-2.5 rounded-xl bg-violet-500/10 text-violet-400 border border-violet-500/20">
+              <i data-lucide="terminal" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-white">Tools & Platforms</h3>
+              <p class="text-xs text-slate-400 font-mono">Development Environments & Version Control</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 mb-4">
+            <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800">
+              <div class="font-semibold text-sm text-white flex items-center gap-1.5">
+                <i data-lucide="code-2" class="w-4 h-4 text-violet-400"></i> Jupyter
+              </div>
+              <div class="text-[11px] text-slate-400 mt-1">Interactive data exploration and prototyping</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800">
+              <div class="font-semibold text-sm text-white flex items-center gap-1.5">
+                <i data-lucide="laptop" class="w-4 h-4 text-blue-400"></i> VS Code
+              </div>
+              <div class="text-[11px] text-slate-400 mt-1">Scripting, debugging & environment configs</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800">
+              <div class="font-semibold text-sm text-white flex items-center gap-1.5">
+                <i data-lucide="git-branch" class="w-4 h-4 text-orange-400"></i> Git & GitHub
+              </div>
+              <div class="text-[11px] text-slate-400 mt-1">Version management & project sharing</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800">
+              <div class="font-semibold text-sm text-white flex items-center gap-1.5">
+                <i data-lucide="cpu" class="w-4 h-4 text-emerald-400"></i> Scikit-Learn
+              </div>
+              <div class="text-[11px] text-slate-400 mt-1">Foundational ML & clustering basics</div>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-2 pt-2 border-t border-slate-800">
+            <span class="skill-tag">Jupyter Notebook</span>
+            <span class="skill-tag">VS Code</span>
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">GitHub</span>
+            <span class="skill-tag">Scikit-learn</span>
+          </div>
+        </div>
+
+        <!-- Category 4: Core Competencies -->
+        <div class="p-6 sm:p-7 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-yellow-500/40 transition-all backdrop-blur-md">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="p-2.5 rounded-xl bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">
+              <i data-lucide="compass" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-white">Core Competencies</h3>
+              <p class="text-xs text-slate-400 font-mono">Methodologies & Business Communication</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div class="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80 text-slate-300 flex items-center gap-2">
+              <i data-lucide="check" class="w-3.5 h-3.5 text-cyan-400"></i> Data Cleaning & Wrangling
+            </div>
+            <div class="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80 text-slate-300 flex items-center gap-2">
+              <i data-lucide="check" class="w-3.5 h-3.5 text-cyan-400"></i> Exploratory Data Analysis (EDA)
+            </div>
+            <div class="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80 text-slate-300 flex items-center gap-2">
+              <i data-lucide="check" class="w-3.5 h-3.5 text-cyan-400"></i> RFM & Segmentation
+            </div>
+            <div class="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80 text-slate-300 flex items-center gap-2">
+              <i data-lucide="check" class="w-3.5 h-3.5 text-cyan-400"></i> Statistical Analysis
+            </div>
+            <div class="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80 text-slate-300 flex items-center gap-2">
+              <i data-lucide="check" class="w-3.5 h-3.5 text-cyan-400"></i> KPI Reporting & Tracking
+            </div>
+            <div class="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80 text-slate-300 flex items-center gap-2">
+              <i data-lucide="check" class="w-3.5 h-3.5 text-cyan-400"></i> Dashboard Architecture
+            </div>
+            <div class="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80 text-slate-300 flex items-center gap-2">
+              <i data-lucide="check" class="w-3.5 h-3.5 text-cyan-400"></i> Data Storytelling
+            </div>
+            <div class="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80 text-slate-300 flex items-center gap-2">
+              <i data-lucide="check" class="w-3.5 h-3.5 text-cyan-400"></i> Stakeholder Communication
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- CERTIFICATIONS SECTION -->
+    <section id="certifications" class="py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 font-mono text-xs uppercase tracking-wider mb-4">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+          Verified Credentials
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+          Certifications & Accreditations
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Cert 1: Google Data Analytics -->
+        <div class="p-6 rounded-2xl bg-slate-900/75 border border-slate-800 hover:border-cyan-500/60 hover:bg-slate-900/95 transition-all group backdrop-blur-md flex flex-col justify-between hover:-translate-y-1 shadow-lg hover:shadow-cyan-500/10">
+          <div>
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform">
+                <i data-lucide="bar-chart-2" class="w-6 h-6"></i>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-mono font-medium bg-rose-500/10 border border-rose-500/30 text-rose-300">
+                  <i data-lucide="file-text" class="w-3 h-3 text-rose-400"></i> PDF
+                </span>
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-mono font-medium bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Verified
+                </span>
+              </div>
+            </div>
+            
+            <h3 class="font-bold text-white text-lg mb-1 group-hover:text-cyan-300 transition-colors">Google Data Analytics</h3>
+            <p class="text-cyan-400 text-xs font-semibold mb-3">Google • Coursera Professional Certificate</p>
+            <p class="text-slate-400 text-xs leading-relaxed mb-4">
+              Comprehensive professional training covering data cleaning, statistical foundations, spreadsheet modeling, SQL data extraction, and executive presentation.
+            </p>
+
+            <!-- Skills Gained -->
+            <div class="pt-3 border-t border-slate-800/80">
+              <div class="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-300 mb-2.5">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-cyan-400"></i>
+                <span>Skills Gained:</span>
+              </div>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-cyan-500/10 border border-cyan-500/20 text-cyan-300">Data Cleaning</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-cyan-500/10 border border-cyan-500/20 text-cyan-300">Exploratory Analysis (EDA)</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-cyan-500/10 border border-cyan-500/20 text-cyan-300">SQL Queries</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-cyan-500/10 border border-cyan-500/20 text-cyan-300">Tableau Visualizations</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-cyan-500/10 border border-cyan-500/20 text-cyan-300">Spreadsheet Modeling</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-cyan-500/10 border border-cyan-500/20 text-cyan-300">Data Storytelling</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Certificate PDF Button -->
+          <div class="mt-6 pt-4 border-t border-slate-800">
+            <a href="https://drive.google.com/file/d/1vkF8tFLFjhtTu-n-IzHwSylq7S4uEZWn/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white text-xs sm:text-sm font-semibold tracking-wide transition-all shadow-md shadow-cyan-500/20 hover:shadow-cyan-500/40 group/btn">
+              <i data-lucide="file-text" class="w-4 h-4 text-white"></i>
+              <span>View Certificate PDF</span>
+              <i data-lucide="external-link" class="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Cert 2: IBM Machine Learning -->
+        <div class="p-6 rounded-2xl bg-slate-900/75 border border-slate-800 hover:border-violet-500/60 hover:bg-slate-900/95 transition-all group backdrop-blur-md flex flex-col justify-between hover:-translate-y-1 shadow-lg hover:shadow-violet-500/10">
+          <div>
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400 group-hover:scale-110 transition-transform">
+                <i data-lucide="cpu" class="w-6 h-6"></i>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-mono font-medium bg-rose-500/10 border border-rose-500/30 text-rose-300">
+                  <i data-lucide="file-text" class="w-3 h-3 text-rose-400"></i> PDF
+                </span>
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-mono font-medium bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Verified
+                </span>
+              </div>
+            </div>
+
+            <h3 class="font-bold text-white text-lg mb-1 group-hover:text-violet-300 transition-colors">Machine Learning</h3>
+            <p class="text-violet-400 text-xs font-semibold mb-3">IBM</p>
+            <p class="text-slate-400 text-xs leading-relaxed mb-4">
+              Mathematical modeling and practical implementation of supervised & unsupervised learning, classification algorithms, regression, and model evaluation metrics.
+            </p>
+
+            <!-- Skills Gained -->
+            <div class="pt-3 border-t border-slate-800/80">
+              <div class="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-300 mb-2.5">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-violet-400"></i>
+                <span>Skills Gained:</span>
+              </div>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-violet-500/10 border border-violet-500/20 text-violet-300">Supervised Learning</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-violet-500/10 border border-violet-500/20 text-violet-300">Classification & Regression</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-violet-500/10 border border-violet-500/20 text-violet-300">Scikit-Learn</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-violet-500/10 border border-violet-500/20 text-violet-300">Feature Engineering</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-violet-500/10 border border-violet-500/20 text-violet-300">Model Evaluation & Metrics</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-violet-500/10 border border-violet-500/20 text-violet-300">Predictive Analytics</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Certificate PDF Button -->
+          <div class="mt-6 pt-4 border-t border-slate-800">
+            <a href="https://drive.google.com/file/d/1JRL0HjfwX2AHxO7mWPMBy2gEQQSf06Yz/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white text-xs sm:text-sm font-semibold tracking-wide transition-all shadow-md shadow-violet-500/20 hover:shadow-violet-500/40 group/btn">
+              <i data-lucide="file-text" class="w-4 h-4 text-white"></i>
+              <span>View Certificate PDF</span>
+              <i data-lucide="external-link" class="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Cert 3: SQL Foundations -->
+        <div class="p-6 rounded-2xl bg-slate-900/75 border border-slate-800 hover:border-emerald-500/60 hover:bg-slate-900/95 transition-all group backdrop-blur-md flex flex-col justify-between hover:-translate-y-1 shadow-lg hover:shadow-emerald-500/10">
+          <div>
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                <i data-lucide="database" class="w-6 h-6"></i>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-mono font-medium bg-rose-500/10 border border-rose-500/30 text-rose-300">
+                  <i data-lucide="file-text" class="w-3 h-3 text-rose-400"></i> PDF
+                </span>
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-mono font-medium bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Verified
+                </span>
+              </div>
+            </div>
+
+            <h3 class="font-bold text-white text-lg mb-1 group-hover:text-emerald-300 transition-colors">SQL Foundations</h3>
+            <p class="text-emerald-400 text-xs font-semibold mb-3">Coursera</p>
+            <p class="text-slate-400 text-xs leading-relaxed mb-4">
+              Relational query design, indexing, aggregations, schema architecture, Common Table Expressions (CTEs), and enterprise database management.
+            </p>
+
+            <!-- Skills Gained -->
+            <div class="pt-3 border-t border-slate-800/80">
+              <div class="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-300 mb-2.5">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span>Skills Gained:</span>
+              </div>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-emerald-500/10 border border-emerald-500/20 text-emerald-300">Complex Joins & Subqueries</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-emerald-500/10 border border-emerald-500/20 text-emerald-300">CTEs & Window Functions</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-emerald-500/10 border border-emerald-500/20 text-emerald-300">Relational Normalization</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-emerald-500/10 border border-emerald-500/20 text-emerald-300">Aggregations & Grouping</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-emerald-500/10 border border-emerald-500/20 text-emerald-300">Query Optimization</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-emerald-500/10 border border-emerald-500/20 text-emerald-300">Schema Design</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Certificate PDF Button -->
+          <div class="mt-6 pt-4 border-t border-slate-800">
+            <a href="https://drive.google.com/file/d/1nbHhPazt4x90018VX3z5BsCwErN1FQoz/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs sm:text-sm font-semibold tracking-wide transition-all shadow-md shadow-emerald-500/20 hover:shadow-emerald-500/40 group/btn">
+              <i data-lucide="file-text" class="w-4 h-4 text-white"></i>
+              <span>View Certificate PDF</span>
+              <i data-lucide="external-link" class="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Cert 4: Python Programming -->
+        <div class="p-6 rounded-2xl bg-slate-900/75 border border-slate-800 hover:border-blue-500/60 hover:bg-slate-900/95 transition-all group backdrop-blur-md flex flex-col justify-between hover:-translate-y-1 shadow-lg hover:shadow-blue-500/10">
+          <div>
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
+                <i data-lucide="code" class="w-6 h-6"></i>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-mono font-medium bg-rose-500/10 border border-rose-500/30 text-rose-300">
+                  <i data-lucide="file-text" class="w-3 h-3 text-rose-400"></i> PDF
+                </span>
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-mono font-medium bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Verified
+                </span>
+              </div>
+            </div>
+
+            <h3 class="font-bold text-white text-lg mb-1 group-hover:text-blue-300 transition-colors">Python Programming</h3>
+            <p class="text-blue-400 text-xs font-semibold mb-3">Infosys Springboard</p>
+            <p class="text-slate-400 text-xs leading-relaxed mb-4">
+              Object-oriented programming, algorithmic foundations, automated scripting, data wrangling pipelines, and NumPy/Pandas computation.
+            </p>
+
+            <!-- Skills Gained -->
+            <div class="pt-3 border-t border-slate-800/80">
+              <div class="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-300 mb-2.5">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-blue-400"></i>
+                <span>Skills Gained:</span>
+              </div>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-blue-500/10 border border-blue-500/20 text-blue-300">OOP Principles</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-blue-500/10 border border-blue-500/20 text-blue-300">Data Structures & Logic</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-blue-500/10 border border-blue-500/20 text-blue-300">NumPy & Pandas</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-blue-500/10 border border-blue-500/20 text-blue-300">ETL Script Automation</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-blue-500/10 border border-blue-500/20 text-blue-300">File I/O & Exception Handling</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-blue-500/10 border border-blue-500/20 text-blue-300">Pipeline Development</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Certificate PDF Button -->
+          <div class="mt-6 pt-4 border-t border-slate-800">
+            <a href="https://drive.google.com/file/d/1LMKOdAtfMusAPKXzYaiYjma5teDRT0U_/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white text-xs sm:text-sm font-semibold tracking-wide transition-all shadow-md shadow-blue-500/20 hover:shadow-blue-500/40 group/btn">
+              <i data-lucide="file-text" class="w-4 h-4 text-white"></i>
+              <span>View Certificate PDF</span>
+              <i data-lucide="external-link" class="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Cert 5: Advanced Internet of Things (IoT) -->
+        <div class="p-6 rounded-2xl bg-slate-900/75 border border-slate-800 hover:border-amber-500/60 hover:bg-slate-900/95 transition-all group backdrop-blur-md flex flex-col justify-between hover:-translate-y-1 shadow-lg hover:shadow-amber-500/10">
+          <div>
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform">
+                <i data-lucide="wifi" class="w-6 h-6"></i>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-mono font-medium bg-rose-500/10 border border-rose-500/30 text-rose-300">
+                  <i data-lucide="file-text" class="w-3 h-3 text-rose-400"></i> PDF
+                </span>
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-mono font-medium bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Verified
+                </span>
+              </div>
+            </div>
+
+            <h3 class="font-bold text-white text-lg mb-1 group-hover:text-amber-300 transition-colors">Advanced Internet of Things (IoT)</h3>
+            <p class="text-amber-400 text-xs font-semibold mb-3">IIMT College of Engineering</p>
+            <p class="text-slate-400 text-xs leading-relaxed mb-4">
+              Connected smart devices, telemetry sensor streams, embedded hardware interfaces, MQTT/HTTP network communications, and edge analytics.
+            </p>
+
+            <!-- Skills Gained -->
+            <div class="pt-3 border-t border-slate-800/80">
+              <div class="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-300 mb-2.5">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span>Skills Gained:</span>
+              </div>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-amber-500/10 border border-amber-500/20 text-amber-300">Sensor Telemetry Ingestion</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-amber-500/10 border border-amber-500/20 text-amber-300">MQTT & HTTP Protocols</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-amber-500/10 border border-amber-500/20 text-amber-300">Embedded Microcontrollers</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-amber-500/10 border border-amber-500/20 text-amber-300">Edge Computing Logic</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-amber-500/10 border border-amber-500/20 text-amber-300">Real-Time Data Streams</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-amber-500/10 border border-amber-500/20 text-amber-300">IoT Architecture & Security</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Certificate PDF Button -->
+          <div class="mt-6 pt-4 border-t border-slate-800">
+            <a href="https://drive.google.com/file/d/18CfSmilhWD7lygJbm-ZWPs_6e9mOq66w/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white text-xs sm:text-sm font-semibold tracking-wide transition-all shadow-md shadow-amber-500/20 hover:shadow-amber-500/40 group/btn">
+              <i data-lucide="file-text" class="w-4 h-4 text-white"></i>
+              <span>View Certificate PDF</span>
+              <i data-lucide="external-link" class="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Cert 6: AI/ML Launchpad Bootcamp -->
+        <div class="p-6 rounded-2xl bg-slate-900/75 border border-slate-800 hover:border-fuchsia-500/60 hover:bg-slate-900/95 transition-all group backdrop-blur-md flex flex-col justify-between hover:-translate-y-1 shadow-lg hover:shadow-fuchsia-500/10">
+          <div>
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-xl bg-fuchsia-500/10 border border-fuchsia-500/20 flex items-center justify-center text-fuchsia-400 group-hover:scale-110 transition-transform">
+                <i data-lucide="brain" class="w-6 h-6"></i>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-mono font-medium bg-rose-500/10 border border-rose-500/30 text-rose-300">
+                  <i data-lucide="file-text" class="w-3 h-3 text-rose-400"></i> PDF
+                </span>
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-mono font-medium bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Verified
+                </span>
+              </div>
+            </div>
+
+            <h3 class="font-bold text-white text-lg mb-1 group-hover:text-fuchsia-300 transition-colors">AI/ML Launchpad Bootcamp</h3>
+            <p class="text-fuchsia-400 text-xs font-semibold mb-3">AI/ML Launchpad Bootcamp • Intensive Program</p>
+            <p class="text-slate-400 text-xs leading-relaxed mb-4">
+              Comprehensive intensive bootcamp curriculum covering Machine Learning algorithm architectures, AI solution engineering, predictive modeling pipelines, and model evaluation metrics.
+            </p>
+
+            <!-- Skills Gained -->
+            <div class="pt-3 border-t border-slate-800/80">
+              <div class="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-300 mb-2.5">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-fuchsia-400"></i>
+                <span>Skills Gained:</span>
+              </div>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-fuchsia-500/10 border border-fuchsia-500/20 text-fuchsia-300">Machine Learning Algorithms</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-fuchsia-500/10 border border-fuchsia-500/20 text-fuchsia-300">AI Model Architectures</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-fuchsia-500/10 border border-fuchsia-500/20 text-fuchsia-300">Predictive Modeling</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-fuchsia-500/10 border border-fuchsia-500/20 text-fuchsia-300">Data Preprocessing</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-fuchsia-500/10 border border-fuchsia-500/20 text-fuchsia-300">Model Evaluation</span>
+                <span class="px-2 py-1 rounded-md text-[11px] font-mono bg-fuchsia-500/10 border border-fuchsia-500/20 text-fuchsia-300">Feature Engineering</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Certificate PDF Button -->
+          <div class="mt-6 pt-4 border-t border-slate-800">
+            <a href="https://drive.google.com/file/d/1K0Yf7yGLxGB8ppaKXXphgOtTGMai-WJc/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-fuchsia-600 to-pink-600 hover:from-fuchsia-500 hover:to-pink-500 text-white text-xs sm:text-sm font-semibold tracking-wide transition-all shadow-md shadow-fuchsia-500/20 hover:shadow-fuchsia-500/40 group/btn">
+              <i data-lucide="file-text" class="w-4 h-4 text-white"></i>
+              <span>View Certificate PDF</span>
+              <i data-lucide="external-link" class="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+      
+      <div class="p-8 sm:p-14 rounded-3xl bg-gradient-to-b from-slate-900/90 to-[#070b14] border border-slate-800 shadow-2xl relative overflow-hidden backdrop-blur-xl">
+        <div class="absolute top-[-50%] right-[-20%] w-[500px] h-[500px] bg-cyan-600/10 rounded-full blur-[140px] pointer-events-none"></div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Contact Left Details -->
+          <div class="lg:col-span-6 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 font-mono text-xs uppercase tracking-wider">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+              Hire Me / Get In Touch
+            </div>
+            <h2 class="text-3xl sm:text-5xl font-extrabold text-white leading-tight">
+              Hire Me — Let's Discuss Your Next <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-300">Data Milestone</span>
+            </h2>
+            <p class="text-slate-300 text-base leading-relaxed">
+              Whether you are looking for a Data Analyst to extract business value from raw datasets, build executive dashboards in Power BI, or conduct rigorous customer segmentation, feel free to reach out!
+            </p>
+
+            <!-- Direct Contact Buttons -->
+            <div class="space-y-3 pt-2">
+              <div class="flex items-center gap-4 p-3.5 rounded-xl bg-slate-950/70 border border-slate-800/90 hover:border-cyan-500/40 transition-all cursor-pointer group" onclick="copyToClipboard('raj079851@gmail.com', 'Copied Email Address!')">
+                <div class="p-3 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 group-hover:scale-105 transition-transform">
+                  <i data-lucide="mail" class="w-5 h-5"></i>
+                </div>
+                <div class="flex-1">
+                  <div class="text-xs text-slate-400 font-mono">Email Address</div>
+                  <div class="text-sm sm:text-base font-semibold text-white group-hover:text-cyan-400 transition-colors">raj079851@gmail.com</div>
+                </div>
+                <button class="p-2 rounded-lg bg-slate-800 text-slate-300 hover:text-white" title="Copy to clipboard">
+                  <i data-lucide="copy" class="w-4 h-4"></i>
+                </button>
+              </div>
+
+              <div class="flex items-center gap-4 p-3.5 rounded-xl bg-slate-950/70 border border-slate-800/90 hover:border-emerald-500/40 transition-all group">
+                <div class="p-3 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 group-hover:scale-105 transition-transform">
+                  <i data-lucide="message-circle" class="w-5 h-5"></i>
+                </div>
+                <div class="flex-1">
+                  <div class="text-xs text-slate-400 font-mono flex items-center gap-2">
+                    <span>WhatsApp / Phone</span>
+                    <span class="px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">Fast Reply</span>
+                  </div>
+                  <a href="https://wa.me/918210916738?text=Hi%20Rohit,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!" target="_blank" rel="noopener noreferrer" class="text-sm sm:text-base font-semibold text-white hover:text-emerald-400 transition-colors flex items-center gap-1.5">
+                    +91 8210916738
+                    <i data-lucide="external-link" class="w-3.5 h-3.5 text-emerald-400"></i>
+                  </a>
+                </div>
+                <button onclick="copyToClipboard('+918210916738', 'Copied Phone Number!')" class="p-2 rounded-lg bg-slate-800 text-slate-300 hover:text-white" title="Copy to clipboard">
+                  <i data-lucide="copy" class="w-4 h-4"></i>
+                </button>
+              </div>
+
+              <div class="flex items-center gap-4 p-3.5 rounded-xl bg-slate-950/70 border border-slate-800/90">
+                <div class="p-3 rounded-lg bg-violet-500/10 text-violet-400 border border-violet-500/20">
+                  <i data-lucide="map-pin" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <div class="text-xs text-slate-400 font-mono">Location</div>
+                  <div class="text-sm sm:text-base font-semibold text-white">Greater Noida, Uttar Pradesh, India</div>
+                </div>
+              </div>
+
+              <!-- Social Profiles Strip in Contact Section -->
+              <div class="pt-2">
+                <div class="text-xs font-mono text-slate-400 mb-2.5">Find me across the web:</div>
+                <div class="flex flex-wrap items-center gap-3">
+                  <a href="https://github.com/raj079851-ship-it" target="_blank" rel="noopener noreferrer" class="social-glow-btn glow-github px-3.5 py-2 flex items-center gap-2 text-xs font-medium shadow-sm" title="GitHub">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/>
+                    </svg>
+                    <span>GitHub</span>
+                  </a>
+                  <a href="https://www.linkedin.com/in/rohit-kumar-221a6327a" target="_blank" rel="noopener noreferrer" class="social-glow-btn glow-linkedin px-3.5 py-2 flex items-center gap-2 text-xs font-medium shadow-sm" title="LinkedIn">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28z"/>
+                    </svg>
+                    <span>LinkedIn</span>
+                  </a>
+                  <a href="https://wa.me/918210916738" target="_blank" rel="noopener noreferrer" class="social-glow-btn glow-whatsapp px-3.5 py-2 flex items-center gap-2 text-xs font-medium shadow-sm" title="WhatsApp (+91 8210916738)">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.41a8.21 8.21 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.41-1.75-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.34-.76-1.84-.2-.49-.4-.42-.56-.43l-.47-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.78 2.71 4.3 3.8.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.1-.22-.16-.47-.29z"/></svg>
+                    <span>WhatsApp</span>
+                  </a>
+                  <a href="https://x.com/RohitKumar75375" target="_blank" rel="noopener noreferrer" class="social-glow-btn glow-twitter px-3.5 py-2 flex items-center gap-2 text-xs font-medium shadow-sm" title="Twitter / X">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    <span>Twitter / X</span>
+                  </a>
+                  <a href="https://www.instagram.com/i_am_rooohit?stkn=c2E5ZXZhMnlidm82" target="_blank" rel="noopener noreferrer" class="social-glow-btn glow-instagram px-3.5 py-2 flex items-center gap-2 text-xs font-medium shadow-sm" title="Instagram">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                    <span>Instagram</span>
+                  </a>
+                  <a href="https://www.facebook.com/share/19cBY2ymWj/" target="_blank" rel="noopener noreferrer" class="social-glow-btn glow-facebook px-3.5 py-2 flex items-center gap-2 text-xs font-medium shadow-sm" title="Facebook">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                    <span>Facebook</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Form Right -->
+          <div class="lg:col-span-6 bg-slate-950/80 p-6 sm:p-8 rounded-2xl border border-slate-800 shadow-xl">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800/80">
+              <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                Direct WhatsApp Dispatch
+              </span>
+              <span class="text-[11px] font-mono text-emerald-400 flex items-center gap-1">
+                <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+                +91 8210916738
+              </span>
+            </div>
+
+            <form id="contact-form" onsubmit="sendViaWhatsApp(event); return false;" class="space-y-4">
+              <div>
+                <label for="name" class="block text-xs font-mono text-slate-300 mb-1.5">Your Name</label>
+                <input type="text" id="name" name="name" required placeholder="e.g. Alex Morgan" class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-sm transition-all" />
+              </div>
+
+              <div>
+                <label for="subject" class="block text-xs font-mono text-slate-300 mb-1.5">Role / Opportunity</label>
+                <select id="subject" name="subject" onchange="handleRoleChange(this)" class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-white focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-sm transition-all cursor-pointer">
+                  <option value="Data Analyst Role">Full-time Data Analyst Opportunity</option>
+                  <option value="Machine Learning Opportunity">Machine Learning Opportunity (ML Engineer)</option>
+                  <option value="Artificial Intelligence Role">Artificial Intelligence (AI) Role</option>
+                  <option value="Data Science">Data Science / Data Scientist Role</option>
+                  <option value="Internship">Data Analytics / AI Internship</option>
+                  <option value="Freelance Dashboard Project">BI Dashboard / Power BI Project</option>
+                  <option value="Custom Role">✨ Custom Role (Specify your own...)</option>
+                  <option value="Other">General Networking & Discussion</option>
+                </select>
+              </div>
+
+              <!-- Custom Role Input Field (Shown when 'Custom Role' is selected) -->
+              <div id="custom-role-wrapper" class="hidden animate-fade-in">
+                <label for="custom-role" class="block text-xs font-mono text-cyan-400 mb-1.5 flex items-center gap-1.5">
+                  <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+                  Specify Custom Role / Title
+                </label>
+                <input type="text" id="custom-role" name="custom_role" placeholder="e.g. Analytics Engineer, Computer Vision Engineer, Junior ML Dev..." class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-cyan-500/50 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 text-sm transition-all" />
+              </div>
+
+              <!-- Message Area with Custom Template Dropdown -->
+              <div>
+                <div class="flex items-center justify-between mb-1.5 flex-wrap gap-2">
+                  <label for="message" class="block text-xs font-mono text-slate-300">Message</label>
+                  <div class="flex items-center gap-1.5">
+                    <span class="text-[11px] font-mono text-slate-400">Template / Custom:</span>
+                    <select id="message-template" onchange="handleMessageTemplateChange(this)" class="text-[11px] font-mono bg-slate-900 border border-slate-700/80 text-cyan-300 rounded-lg px-2.5 py-1 focus:outline-none focus:border-cyan-400 cursor-pointer shadow-sm hover:border-cyan-500/60 transition-all">
+                      <option value="custom">✍️ Custom Message (Write Your Own)</option>
+                      <option value="interview">📅 Interview Invitation</option>
+                      <option value="shortlist">💡 Shortlist for Role</option>
+                      <option value="freelance">🚀 BI / Dashboard Project</option>
+                      <option value="networking">☕ Coffee Chat / Connect</option>
+                    </select>
+                  </div>
+                </div>
+                <textarea id="message" name="message" rows="4" required placeholder="Tell me about your team, role expectations, or project requirements..." class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-sm transition-all"></textarea>
+              </div>
+
+              <div class="pt-1">
+                <button type="submit" id="submit-btn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 hover:from-emerald-400 hover:to-teal-400 text-white font-extrabold flex items-center justify-center gap-2.5 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:opacity-95 transition-all text-sm sm:text-base cursor-pointer">
+                  <i data-lucide="message-circle" class="w-5 h-5 text-white"></i>
+                  <span>Send Inquiry via WhatsApp (+91 8210916738)</span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="relative z-10 border-t border-slate-800/80 bg-[#030610] pt-16 pb-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    
+    <!-- Ambient Subtle Top Glow -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 max-w-4xl h-px bg-gradient-to-r from-transparent via-cyan-500/40 to-transparent"></div>
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-24 bg-cyan-500/5 blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto">
+      
+      <!-- Top Grid: Brand, Navigation, Featured, Connect -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-12">
+        
+        <!-- Col 1: Identity & Professional Overview (5 cols) -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-violet-600 p-[1.5px] shadow-lg shadow-cyan-500/20 shrink-0">
+              <img src="./file_00000000c80c820ba76b3e00df819d3e.png" alt="Rohit Kumar" class="w-full h-full object-cover object-top rounded-[10px]" />
+            </div>
+            <div>
+              <div class="font-bold text-lg text-white tracking-tight flex items-center gap-2">
+                Rohit Kumar
+                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono font-medium bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Open to Work
+                </span>
+              </div>
+              <p class="text-xs text-cyan-400 font-mono tracking-wide">Data Analyst & Business Intelligence Specialist</p>
+            </div>
+          </div>
+
+          <p class="text-slate-400 text-sm leading-relaxed max-w-md">
+            Transforming multi-variable enterprise datasets into executive-grade Power BI dashboards, automated Python ETL pipelines, and high-impact predictive customer segmentations.
+          </p>
+
+          <!-- Direct Contact Pills -->
+          <div class="pt-2 flex flex-wrap gap-2.5">
+            <button onclick="copyToClipboard('raj079851@gmail.com', 'Email copied: raj079851@gmail.com')" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-cyan-500/50 text-slate-300 hover:text-white font-mono text-xs transition-all group/mail" title="Click to copy email">
+              <i data-lucide="mail" class="w-3.5 h-3.5 text-cyan-400 group-hover/mail:scale-110 transition-transform"></i>
+              <span>raj079851@gmail.com</span>
+            </button>
+            <a href="https://wa.me/918210916738" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-800 hover:border-emerald-500/50 text-slate-300 hover:text-white font-mono text-xs transition-all group/wa" title="WhatsApp Message">
+              <i data-lucide="message-circle" class="w-3.5 h-3.5 text-emerald-400 group-hover/wa:scale-110 transition-transform"></i>
+              <span>+91 8210916738</span>
+            </a>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/50 border border-slate-800 text-slate-400 font-mono text-xs">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-500"></i>
+              <span>Noida / Delhi NCR, India</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Col 2: Navigation Links (2 cols) -->
+        <div class="lg:col-span-2 space-y-3">
+          <p class="text-xs font-mono font-semibold uppercase tracking-wider text-cyan-400 flex items-center gap-1.5">
+            <span>Navigation</span>
+          </p>
+          <ul class="space-y-2 text-sm text-slate-400">
+            <li><a href="#projects" class="hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5"><span>•</span> Live Dashboards</a></li>
+            <li><a href="#experience" class="hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5"><span>•</span> Work Experience</a></li>
+            <li><a href="#skills" class="hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5"><span>•</span> Technical Skills</a></li>
+            <li><a href="#certifications" class="hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5"><span>•</span> Certifications</a></li>
+            <li><a href="#contact" class="hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5"><span>•</span> Contact & Hire</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Analytical Projects & Stack (2 cols) -->
+        <div class="lg:col-span-2 space-y-3">
+          <p class="text-xs font-mono font-semibold uppercase tracking-wider text-cyan-400 flex items-center gap-1.5">
+            <span>Featured Work</span>
+          </p>
+          <ul class="space-y-2 text-sm text-slate-400">
+            <li><a href="#projects" class="hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5"><span>•</span> RFM Segmentation</a></li>
+            <li><a href="#projects" class="hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5"><span>•</span> Superstore Sales</a></li>
+            <li><a href="#experience" class="hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5"><span>•</span> Alfido Tech Pipeline</a></li>
+            <li><button onclick="openResumeModal()" class="hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5 text-left"><span>•</span> Preview Resume PDF</button></li>
+            <li><a href="./Resume.pdf" download="Rohit_Kumar_Resume.pdf" class="hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5"><span>•</span> Download Resume</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Connect & Socials (3 cols) -->
+        <div class="lg:col-span-3 space-y-3">
+          <p class="text-xs font-mono font-semibold uppercase tracking-wider text-cyan-400 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_#22d3ee] animate-pulse"></span>
+            <span>Connect & Socials</span>
+          </p>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Directly connect across official profiles or send an inquiry for full-time & consulting roles:
+          </p>
+
+          <!-- Separated Glowing Social Buttons in a Neat Grid -->
+          <div class="pt-2 flex items-center gap-2.5 flex-wrap">
+            <!-- Gmail -->
+            <a href="mailto:raj079851@gmail.com" class="social-glow-btn glow-gmail w-10 h-10" title="Email: raj079851@gmail.com">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
+              </svg>
+            </a>
+            <a href="https://github.com/raj079851-ship-it" target="_blank" rel="noopener noreferrer" class="social-glow-btn glow-github w-10 h-10" title="GitHub">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/>
+              </svg>
+            </a>
+            <a href="https://www.linkedin.com/in/rohit-kumar-221a6327a" target="_blank" rel="noopener noreferrer" class="social-glow-btn glow-linkedin w-10 h-10" title="LinkedIn">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28z"/>
+              </svg>
+            </a>
+            <a href="https://wa.me/918210916738" target="_blank" rel="noopener noreferrer" class="social-glow-btn glow-whatsapp w-10 h-10" title="WhatsApp (+91 8210916738)">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.41a8.21 8.21 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.41-1.75-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.34-.76-1.84-.2-.49-.4-.42-.56-.43l-.47-.01c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.78 2.71 4.3 3.8.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.1-.22-.16-.47-.29z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/i_am_rooohit?stkn=c2E5ZXZhMnlidm82" target="_blank" rel="noopener noreferrer" class="social-glow-btn glow-instagram w-10 h-10" title="Instagram">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </a>
+            <a href="https://www.facebook.com/share/19cBY2ymWj/" target="_blank" rel="noopener noreferrer" class="social-glow-btn glow-facebook w-10 h-10" title="Facebook">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </a>
+          </div>
+
+          <div class="pt-2">
+            <a href="#contact" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500/20 to-blue-600/20 hover:from-cyan-500/30 hover:to-blue-600/30 border border-cyan-500/30 hover:border-cyan-500/60 text-cyan-300 font-medium text-xs transition-all">
+              <i data-lucide="send" class="w-3.5 h-3.5"></i>
+              <span>Hire / Send Direct Inquiry</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Hairline Divider -->
+      <div class="h-px w-full bg-gradient-to-r from-transparent via-slate-800 to-transparent"></div>
+
+      <!-- Bottom Bar: Copyright, Open Status, Back to Top -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-400">
+        
+        <div class="flex items-center gap-2 flex-wrap text-center sm:text-left">
+          <span>© 2026 Rohit Kumar.</span>
+          <span class="text-slate-600 hidden sm:inline">•</span>
+          <span class="text-slate-500">Built for high-impact analytical performance.</span>
+        </div>
+
+        <div class="flex items-center gap-3 sm:gap-4 flex-wrap justify-center sm:justify-end">
+          <button onclick="openAnalyticsModal()" class="hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5" title="View Live Visitor & Geolocation Telemetry">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <i data-lucide="compass" class="w-3.5 h-3.5 text-emerald-400"></i>
+            <span>Visitor Insights</span>
+          </button>
+          <span class="text-slate-700">•</span>
+          <button onclick="openCookieModal()" class="hover:text-cyan-400 transition-colors inline-flex items-center gap-1.5">
+            <i data-lucide="cookie" class="w-3.5 h-3.5 text-cyan-400"></i>
+            <span>Cookie Settings</span>
+          </button>
+          <span class="text-slate-700">•</span>
+          <button onclick="openResumeModal()" class="hover:text-cyan-400 transition-colors">Resume</button>
+          <span class="text-slate-700">•</span>
+          <a href="#hero" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-cyan-500/40 text-slate-300 hover:text-cyan-400 transition-all group">
+            <span>Back to top</span>
+            <i data-lucide="arrow-up" class="w-3.5 h-3.5 group-hover:-translate-y-0.5 transition-transform"></i>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Cookie Consent Floating Banner -->
+  <div id="cookie-banner" class="fixed bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-auto max-w-md z-50 transform translate-y-32 opacity-0 pointer-events-none transition-all duration-500 ease-out">
+    <div class="p-5 sm:p-6 rounded-2xl bg-[#090e1c]/95 border border-slate-700/90 shadow-2xl backdrop-blur-xl relative overflow-hidden">
+      <!-- Gradient Accent Rim -->
+      <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-500 via-blue-500 to-violet-500"></div>
+
+      <div class="flex items-start gap-3.5 mb-3">
+        <div class="p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 shrink-0">
+          <i data-lucide="cookie" class="w-5 h-5"></i>
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center justify-between">
+            <h4 class="text-sm font-bold text-white tracking-wide">Cookie & Privacy Notice</h4>
+            <button onclick="acceptEssentialCookies()" class="text-slate-400 hover:text-white p-1 transition-colors" title="Dismiss">
+              <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed mt-1">
+            This portfolio uses browser cookies and local storage to optimize interactive dashboard performance, preserve your custom inputs, and analyze anonymized site traffic.
+          </p>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2 pt-2 flex-wrap">
+        <button onclick="acceptAllCookies()" class="flex-1 px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-xs shadow-md shadow-cyan-500/25 transition-all text-center">
+          Accept All
+        </button>
+        <button onclick="openCookieModal()" class="px-3.5 py-2 rounded-xl border border-slate-700 bg-slate-800/80 hover:bg-slate-800 text-slate-300 hover:text-white font-medium text-xs transition-all">
+          Preferences
+        </button>
+        <button onclick="acceptEssentialCookies()" class="px-3 py-2 rounded-xl text-slate-400 hover:text-slate-200 font-mono text-xs transition-colors">
+          Essential Only
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resume Preview Modal -->
+  <div id="resume-modal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6" onclick="handleModalBackdropClick(event)">
+    <div class="bg-[#0b1120] border border-slate-700/80 rounded-2xl w-full max-w-5xl h-[90vh] flex flex-col shadow-2xl overflow-hidden animate-fade-in" onclick="event.stopPropagation()">
+      <div class="px-5 py-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/80">
+        <div class="flex items-center gap-3">
+          <div class="p-2 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+            <i data-lucide="file-text" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-white font-bold text-sm sm:text-base">Rohit Kumar — Resume</h3>
+            <p class="text-[11px] text-slate-400 font-mono">Resume.pdf</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <a href="./Resume.pdf" download="Rohit_Kumar_Resume.pdf" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-cyan-500 text-slate-950 font-bold text-xs hover:bg-cyan-400 transition-all shadow-md">
+            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+            <span>Download</span>
+          </a>
+          <a href="./Resume.pdf" target="_blank" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 text-xs transition-all" title="Open in New Tab">
+            <i data-lucide="external-link" class="w-4 h-4"></i>
+          </a>
+          <button onclick="closeResumeModal()" class="p-2 rounded-lg bg-slate-800 hover:bg-rose-500/20 hover:text-rose-400 text-slate-300 border border-slate-700 text-xs transition-all" title="Close Modal">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+      <div class="flex-1 w-full h-full bg-slate-950 relative">
+        <iframe id="resume-iframe" src="./Resume.pdf" class="w-full h-full border-none"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cookie Preferences Customization Modal -->
+  <div id="cookie-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6" onclick="handleCookieModalBackdropClick(event)">
+    <div class="bg-[#0b1120] border border-slate-700/80 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden animate-fade-in" onclick="event.stopPropagation()">
+      
+      <!-- Modal Header -->
+      <div class="px-6 py-5 border-b border-slate-800 flex items-center justify-between bg-slate-900/80">
+        <div class="flex items-center gap-3">
+          <div class="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+            <i data-lucide="sliders" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-white font-bold text-base">Cookie & Privacy Preferences</h3>
+            <p class="text-[11px] text-slate-400 font-mono">Manage your personal data & storage choices</p>
+          </div>
+        </div>
+        <button onclick="closeCookieModal()" class="p-2 rounded-lg bg-slate-800 hover:bg-rose-500/20 hover:text-rose-400 text-slate-300 border border-slate-700 text-xs transition-all" title="Close Modal">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 space-y-5 max-h-[70vh] overflow-y-auto">
+        <p class="text-xs text-slate-300 leading-relaxed">
+          Select which categories of cookies and local storage you permit. Essential cookies are required for fundamental portfolio features and cannot be deactivated.
+        </p>
+
+        <!-- Category 1: Strictly Necessary -->
+        <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
+              <span class="text-sm font-bold text-white">Strictly Necessary</span>
+            </div>
+            <span class="px-2.5 py-0.5 rounded-md text-[10px] font-mono font-semibold bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+              Always Active
+            </span>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Essential for navigation state, PDF resume modal caching, responsive layout transitions, and anti-spam verification.
+          </p>
+        </div>
+
+        <!-- Category 2: Performance & Analytics -->
+        <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <i data-lucide="bar-chart-2" class="w-4 h-4 text-cyan-400"></i>
+              <span class="text-sm font-bold text-white">Performance & Analytics</span>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="cookie-pref-analytics" class="sr-only peer" checked>
+              <div class="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cyan-500 border border-slate-700"></div>
+            </label>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Measures dashboard rendering performance, Chart.js interaction responsiveness, and anonymous visit analytics.
+          </p>
+        </div>
+
+        <!-- Category 3: Functional & Preferences -->
+        <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <i data-lucide="sparkles" class="w-4 h-4 text-violet-400"></i>
+              <span class="text-sm font-bold text-white">Functional Preferences</span>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="cookie-pref-functional" class="sr-only peer" checked>
+              <div class="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cyan-500 border border-slate-700"></div>
+            </label>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Remembers role selections, quick message template preferences, and interactive chart view modes across your visits.
+          </p>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-6 py-4 border-t border-slate-800 flex items-center justify-between gap-3 bg-slate-900/60">
+        <button onclick="acceptEssentialCookies()" class="px-4 py-2 rounded-xl text-xs font-mono text-slate-400 hover:text-slate-200 transition-colors">
+          Reject Optional
+        </button>
+        <div class="flex items-center gap-2">
+          <button onclick="saveCustomCookiePreferences()" class="px-4 py-2 rounded-xl border border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition-all">
+            Save Preferences
+          </button>
+          <button onclick="acceptAllCookies()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-xs shadow-md shadow-cyan-500/25 transition-all">
+            Accept All
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Visitor Analytics & Geolocation Telemetry Modal -->
+  <div id="analytics-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6" onclick="handleAnalyticsModalBackdropClick(event)">
+    <div class="bg-[#0b1120] border border-slate-700/80 rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden animate-fade-in flex flex-col max-h-[88vh]" onclick="event.stopPropagation()">
+      
+      <!-- Modal Header -->
+      <div class="px-6 py-5 border-b border-slate-800 flex items-center justify-between bg-slate-900/80 shrink-0">
+        <div class="flex items-center gap-3">
+          <div class="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <i data-lucide="compass" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="text-white font-bold text-base">Visitor & Geolocation Telemetry</h3>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                Live Session
+              </span>
+            </div>
+            <p class="text-[11px] text-slate-400 font-mono">Real-time IP, geographic location, coordinates & device telemetry</p>
+          </div>
+        </div>
+        <button onclick="closeAnalyticsModal()" class="p-2 rounded-lg bg-slate-800 hover:bg-rose-500/20 hover:text-rose-400 text-slate-300 border border-slate-700 text-xs transition-all" title="Close Modal">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body (Scrollable) -->
+      <div class="p-6 space-y-6 overflow-y-auto flex-1">
+        
+        <!-- Live Current Visitor Summary Banner -->
+        <div id="analytics-live-card" class="p-5 rounded-2xl bg-gradient-to-br from-slate-900/90 via-slate-900/50 to-slate-950/90 border border-slate-800 relative overflow-hidden">
+          <div class="flex items-center justify-between gap-3 mb-4 flex-wrap">
+            <div class="flex items-center gap-3">
+              <span class="text-3xl" id="visitor-flag">🌐</span>
+              <div>
+                <h4 class="text-white font-bold text-sm sm:text-base flex items-center gap-2">
+                  <span id="visitor-city-country">Detecting visitor location...</span>
+                </h4>
+                <p class="text-[11px] text-slate-400 font-mono" id="visitor-ip-badge">IP: In progress...</p>
+              </div>
+            </div>
+            <div id="visitor-maps-btn-container">
+              <!-- Dynamically populated with Google Maps button -->
+            </div>
+          </div>
+
+          <!-- Telemetry Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
+            <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80">
+              <span class="text-slate-500 text-[10px] block mb-1">📍 EXACT / COARSE LOCATION</span>
+              <div class="text-slate-200 font-sans font-medium" id="visitor-location-detail">—</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80">
+              <span class="text-slate-500 text-[10px] block mb-1">🧭 GEOGRAPHIC COORDINATES</span>
+              <div class="text-cyan-400 font-semibold" id="visitor-coordinates">—</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80">
+              <span class="text-slate-500 text-[10px] block mb-1">💻 DEVICE & OPERATING SYSTEM</span>
+              <div class="text-slate-200 font-sans font-medium" id="visitor-device-os">—</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80">
+              <span class="text-slate-500 text-[10px] block mb-1">🌐 BROWSER & RESOLUTION</span>
+              <div class="text-slate-200 font-sans font-medium" id="visitor-browser-screen">—</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80">
+              <span class="text-slate-500 text-[10px] block mb-1">📡 ISP / NETWORK PROVIDER</span>
+              <div class="text-slate-200 font-sans font-medium" id="visitor-isp">—</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80">
+              <span class="text-slate-500 text-[10px] block mb-1">🚦 TRAFFIC REFERRER & ARRIVAL</span>
+              <div class="text-slate-200 font-sans font-medium" id="visitor-referrer-time">—</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notification Status Badge -->
+        <div class="p-4 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+          <div class="flex items-center gap-2.5">
+            <i data-lucide="mail-check" class="w-4 h-4 text-cyan-400 shrink-0"></i>
+            <span class="text-slate-300">
+              Visitor email alert dispatch: <strong class="text-white font-mono">unwantedmailusage@gmail.com</strong>
+            </span>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <button onclick="sendTestVisitorEmail()" class="px-3 py-1 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 font-mono text-[11px] border border-cyan-500/30 transition-all flex items-center gap-1.5" title="Dispatch test visitor email to unwantedmailusage@gmail.com">
+              <i data-lucide="send" class="w-3 h-3"></i>
+              <span>Send Test Email</span>
+            </button>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Active</span>
+          </div>
+        </div>
+
+        <!-- Recent Recorded Visits History Log -->
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider font-mono flex items-center gap-2">
+              <i data-lucide="history" class="w-3.5 h-3.5 text-cyan-400"></i>
+              Recorded Visitor History (Local Cache)
+            </h4>
+            <button onclick="clearVisitorAnalyticsHistory()" class="text-[11px] font-mono text-slate-400 hover:text-rose-400 transition-colors flex items-center gap-1">
+              <i data-lucide="trash-2" class="w-3 h-3"></i>
+              Clear Log
+            </button>
+          </div>
+          <div id="analytics-history-list" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+            <!-- Populated dynamically by script.js -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-6 py-4 border-t border-slate-800 flex items-center justify-between gap-3 bg-slate-900/60 shrink-0">
+        <button onclick="copyVisitorAnalyticsData()" class="px-4 py-2 rounded-xl border border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition-all flex items-center gap-1.5">
+          <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+          <span>Copy Telemetry JSON</span>
+        </button>
+        <button onclick="closeAnalyticsModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-xs shadow-md shadow-cyan-500/25 transition-all">
+          Close
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FLOATING AI ASSISTANT WIDGET & TRIGGER -->
+  <!-- Floating Trigger Button (Bottom-Right) -->
+  <div id="ai-assistant-trigger" class="fixed bottom-6 right-6 z-40">
+    <button onclick="toggleAiChat()" id="ai-trigger-btn" class="group relative flex items-center gap-3 px-4 sm:px-5 py-3 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600 text-white shadow-xl shadow-cyan-500/30 hover:shadow-cyan-500/55 hover:scale-105 active:scale-95 transition-all duration-300">
+      <!-- Ambient Glow Ring -->
+      <span class="absolute -inset-1 rounded-full bg-gradient-to-r from-cyan-500 to-violet-600 opacity-50 blur-sm group-hover:opacity-90 transition-opacity pointer-events-none"></span>
+      
+      <div class="relative flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/30 text-white">
+          <i data-lucide="sparkles" class="w-4 h-4 text-cyan-200 group-hover:rotate-12 transition-transform"></i>
+        </div>
+        <div class="flex flex-col text-left">
+          <span class="text-xs font-bold tracking-wide flex items-center gap-1.5">
+            Ask Aria AI
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          </span>
+          <span class="text-[10px] text-cyan-200/90 font-mono hidden sm:inline">Voice-Enabled Assistant</span>
+        </div>
+      </div>
+    </button>
+  </div>
+
+  <!-- AI Assistant Chat Dialog Window -->
+  <div id="ai-chat-window" class="fixed bottom-20 sm:bottom-24 right-4 sm:right-6 w-[calc(100vw-32px)] sm:w-[440px] h-[580px] max-h-[82vh] z-50 rounded-3xl bg-[#080d1a]/95 border border-cyan-500/40 shadow-2xl backdrop-blur-2xl flex flex-col overflow-hidden hidden transition-all duration-300">
+    
+    <!-- Chat Header -->
+    <div class="px-5 py-3.5 border-b border-slate-800/90 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-slate-950/90 flex items-center justify-between shrink-0 relative">
+      <div class="flex items-center gap-3">
+        <div class="relative">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-violet-600 p-[1.5px] shadow-md shadow-cyan-500/20">
+            <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center text-cyan-400">
+              <i data-lucide="bot" class="w-5 h-5"></i>
+            </div>
+          </div>
+          <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-400 border-2 border-slate-950"></span>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 id="ai-assistant-name" class="font-bold text-white text-sm">Aria — AI Assistant</h3>
+            <span id="ai-voice-badge" class="px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-violet-500/15 border border-violet-500/30 text-violet-300">
+              Female Voice
+            </span>
+          </div>
+          <p class="text-[11px] text-cyan-400/90 font-mono">Rohit Kumar Portfolio Intelligence</p>
+        </div>
+      </div>
+
+      <!-- Header Controls -->
+      <div class="flex items-center gap-1.5">
+        <!-- Voice Speaking Toggle -->
+        <button onclick="toggleVoiceSpeech()" id="voice-toggle-btn" class="p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 border border-slate-700/80 text-cyan-400 hover:text-cyan-300 text-xs transition-all relative flex items-center gap-1.5" title="Toggle Auto-Voice Speech">
+          <div id="soundwave-container" class="hidden items-center gap-0.5 h-3">
+            <span class="sound-wave-bar"></span>
+            <span class="sound-wave-bar"></span>
+            <span class="sound-wave-bar"></span>
+            <span class="sound-wave-bar"></span>
+          </div>
+          <i data-lucide="volume-2" id="voice-icon" class="w-4 h-4"></i>
+        </button>
+
+        <!-- Clear Chat -->
+        <button onclick="clearAiChat()" class="p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 border border-slate-700/80 text-slate-400 hover:text-white text-xs transition-all" title="Clear Conversation">
+          <i data-lucide="trash-2" class="w-4 h-4"></i>
+        </button>
+
+        <!-- Close / Minimize -->
+        <button onclick="toggleAiChat()" class="p-2 rounded-xl bg-slate-800/80 hover:bg-rose-500/20 hover:text-rose-400 border border-slate-700/80 text-slate-400 text-xs transition-all" title="Close Chat">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Voice Gender & Language Customization Toolbar -->
+    <div class="px-4 py-2 border-b border-slate-800/80 bg-slate-950/70 flex items-center justify-between gap-2 shrink-0">
+      
+      <!-- Voice Gender Selector -->
+      <div class="flex items-center gap-1 bg-slate-900/90 p-0.5 rounded-xl border border-slate-800">
+        <button id="voice-female-btn" onclick="setVoiceGender('female')" class="px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-sm" title="Female Voice (Aria)">
+          <span>👩</span>
+          <span class="text-[11px] font-mono">Female</span>
+        </button>
+        <button id="voice-male-btn" onclick="setVoiceGender('male')" class="px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all text-slate-400 hover:text-slate-200" title="Male Voice (Alex)">
+          <span>👨</span>
+          <span class="text-[11px] font-mono">Male</span>
+        </button>
+      </div>
+
+      <!-- Language Selector -->
+      <div class="flex items-center gap-1.5">
+        <i data-lucide="globe" class="w-3.5 h-3.5 text-cyan-400"></i>
+        <select id="ai-language-select" onchange="setAiLanguage(this.value)" class="text-[11px] font-mono bg-slate-900 border border-slate-700/80 text-cyan-300 rounded-lg px-2 py-1 focus:outline-none focus:border-cyan-400 cursor-pointer shadow-sm hover:border-cyan-500/50 transition-all">
+          <option value="en" selected>🇬🇧 English</option>
+          <option value="hi">🇮🇳 हिंदी (Hindi)</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="de">🇩🇪 Deutsch</option>
+        </select>
+      </div>
+
+    </div>
+
+    <!-- Active Speaking Banner (shows when voice is actively speaking with Stop button) -->
+    <div id="speaking-banner" class="hidden px-4 py-2 bg-gradient-to-r from-cyan-500/15 via-blue-500/15 to-violet-500/15 border-b border-cyan-500/30 flex items-center justify-between text-xs font-mono text-cyan-300 shrink-0 animate-fade-in">
+      <div class="flex items-center gap-2">
+        <div class="flex items-center gap-0.5 h-3.5">
+          <span class="sound-wave-bar"></span>
+          <span class="sound-wave-bar"></span>
+          <span class="sound-wave-bar"></span>
+          <span class="sound-wave-bar"></span>
+        </div>
+        <span>Aria is speaking aloud...</span>
+      </div>
+      <button onclick="stopSpeaking()" class="px-2.5 py-0.5 rounded-md bg-rose-500/20 hover:bg-rose-500/30 border border-rose-500/40 text-rose-300 font-bold text-[11px] transition-all">
+        Stop Voice
+      </button>
+    </div>
+
+    <!-- Chat Messages Scroll Area -->
+    <div id="ai-messages" class="flex-1 p-4 sm:p-5 overflow-y-auto space-y-4 ai-chat-scroll text-sm">
+      
+      <!-- Welcome Message from Aria -->
+      <div class="flex items-start gap-3">
+        <div class="w-8 h-8 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0 mt-0.5">
+          <i data-lucide="bot" class="w-4 h-4"></i>
+        </div>
+        <div class="flex-1 bg-slate-900/85 border border-slate-800 rounded-2xl rounded-tl-sm p-4 space-y-2 text-slate-200 shadow-sm">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-bold text-cyan-400">Aria (AI Assistant)</span>
+            <button onclick="speakMessageText(this)" class="text-slate-400 hover:text-cyan-400 text-xs inline-flex items-center gap-1 transition-colors" title="Listen with Female Voice">
+              <i data-lucide="volume-2" class="w-3.5 h-3.5"></i>
+              <span class="text-[10px] font-mono">Speak</span>
+            </button>
+          </div>
+          <p class="text-xs sm:text-[13px] leading-relaxed">
+            Hello! I'm <strong class="text-white">Aria</strong>, Rohit Kumar's voice-enabled AI assistant. I can speak aloud and answer any queries regarding his <span class="text-cyan-300">Data Analytics skills, Superstore Sales project, RFM Customer Segmentation, Alfido Tech internship</span>, or hiring availability.
+          </p>
+          <p class="text-xs text-slate-400">
+            Pick a quick query below or type/speak your question!
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Suggested Quick Prompts Chips -->
+    <div class="px-4 py-2 border-t border-slate-800/80 bg-slate-950/60 overflow-x-auto whitespace-nowrap shrink-0 flex items-center gap-2">
+      <button onclick="askAiPrompt('What are Rohit\'s core technical skills?')" class="px-3 py-1.5 rounded-full text-[11px] font-mono bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-cyan-500/50 text-slate-300 hover:text-cyan-300 transition-all shrink-0">
+        💼 Core Skills
+      </button>
+      <button onclick="askAiPrompt('Tell me about the Superstore Sales project.')" class="px-3 py-1.5 rounded-full text-[11px] font-mono bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-cyan-500/50 text-slate-300 hover:text-cyan-300 transition-all shrink-0">
+        📊 Superstore Analysis
+      </button>
+      <button onclick="askAiPrompt('Explain the Customer RFM Segmentation analysis.')" class="px-3 py-1.5 rounded-full text-[11px] font-mono bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-cyan-500/50 text-slate-300 hover:text-cyan-300 transition-all shrink-0">
+        👥 RFM Segmentation
+      </button>
+      <button onclick="askAiPrompt('What did Rohit do at his Alfido Tech internship?')" class="px-3 py-1.5 rounded-full text-[11px] font-mono bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-cyan-500/50 text-slate-300 hover:text-cyan-300 transition-all shrink-0">
+        🏢 Alfido Tech Intern
+      </button>
+      <button onclick="askAiPrompt('What certifications does Rohit hold?')" class="px-3 py-1.5 rounded-full text-[11px] font-mono bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-cyan-500/50 text-slate-300 hover:text-cyan-300 transition-all shrink-0">
+        📜 Certifications
+      </button>
+      <button onclick="askAiPrompt('How can I contact or hire Rohit?')" class="px-3 py-1.5 rounded-full text-[11px] font-mono bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-cyan-500/50 text-slate-300 hover:text-cyan-300 transition-all shrink-0">
+        📬 Contact & Hire
+      </button>
+    </div>
+
+    <!-- Input Box & Voice Recognition Controls -->
+    <div class="p-3 sm:p-4 border-t border-slate-800/90 bg-slate-950 flex items-center gap-2 shrink-0">
+      
+      <!-- Speech Recognition Mic Button -->
+      <button id="mic-btn" onclick="toggleSpeechRecognition()" class="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-cyan-500/50 text-slate-400 hover:text-cyan-400 transition-all" title="Click to Speak your Query">
+        <i data-lucide="mic" id="mic-icon" class="w-4 h-4"></i>
+      </button>
+
+      <!-- Text Input -->
+      <input 
+        type="text" 
+        id="ai-query-input" 
+        onkeydown="handleAiInputKey(event)"
+        placeholder="Ask Aria about Rohit's experience..." 
+        class="flex-1 px-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-800 text-white placeholder-slate-500 text-xs sm:text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all" 
+      />
+
+      <!-- Send Button -->
+      <button onclick="submitAiQuery()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-xs shadow-md shadow-cyan-500/20 transition-all flex items-center justify-center shrink-0">
+        <i data-lucide="send" class="w-4 h-4"></i>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</body>
+</html>

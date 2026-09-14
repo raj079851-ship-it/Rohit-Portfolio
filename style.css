@@ -1,0 +1,367 @@
+/* ==========================================================================
+   Rohit Kumar - Data Analyst Animated Portfolio Styles
+   ========================================================================== */
+
+/* Custom Smooth Scrolling & Scrollbar */
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #060a12;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #06b6d4;
+}
+
+/* Glassmorphic & Glow utilities */
+.glass-card {
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  border-color: rgba(6, 182, 212, 0.4);
+  box-shadow: 0 12px 30px -10px rgba(6, 182, 212, 0.15);
+  transform: translateY(-2px);
+}
+
+/* KPI Cards Glow */
+.kpi-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(6, 182, 212, 0.08),
+    transparent
+  );
+  transition: 0.5s;
+  pointer-events: none;
+}
+
+.kpi-card:hover::before {
+  left: 100%;
+}
+
+.kpi-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px -5px rgba(6, 182, 212, 0.12);
+}
+
+/* Skill Tags */
+.skill-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.5rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background-color: rgba(15, 23, 42, 0.8);
+  color: #94a3b8;
+  border: 1px solid rgba(51, 65, 85, 0.6);
+  transition: all 0.2s ease;
+}
+
+.skill-tag:hover {
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.5);
+  background-color: rgba(56, 189, 248, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Animated Cursor for Typed Text */
+#typed-text::after {
+  content: '|';
+  animation: blink 0.8s infinite;
+  color: #06b6d4;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Ambient Pulse Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Chart Canvas adjustments */
+canvas {
+  max-width: 100%;
+}
+
+/* Hero Profile Photo in Circle (No tags, dark portfolio background matching) */
+.hero-portrait-circle {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 420px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #060a12;
+  border: 2px solid rgba(6, 182, 212, 0.35);
+  box-shadow: 0 0 50px rgba(6, 182, 212, 0.25), 0 20px 50px -10px rgba(0, 0, 0, 0.7);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hero-portrait-circle:hover {
+  transform: scale(1.02);
+  border-color: rgba(6, 182, 212, 0.65);
+  box-shadow: 0 0 70px rgba(6, 182, 212, 0.4), 0 25px 60px -10px rgba(0, 0, 0, 0.8);
+}
+
+.hero-portrait-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hero-portrait-circle:hover img {
+  transform: scale(1.05);
+}
+
+/* ==========================================================================
+   Social Media Glowing Icon Buttons (Attractive Neon Glow)
+   ========================================================================== */
+.social-glow-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.875rem; /* rounded-xl */
+  background: rgba(10, 15, 29, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.social-glow-btn svg {
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* GitHub Glow */
+.social-glow-btn.glow-github {
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #f1f5f9;
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.09);
+}
+.social-glow-btn.glow-github svg {
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.45));
+}
+.social-glow-btn.glow-github:hover {
+  border-color: #ffffff;
+  color: #ffffff;
+  background: rgba(30, 41, 59, 0.95);
+  box-shadow: 0 0 28px rgba(255, 255, 255, 0.5), inset 0 0 12px rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px) scale(1.1);
+}
+.social-glow-btn.glow-github:hover svg {
+  filter: drop-shadow(0 0 8px #ffffff);
+}
+
+/* LinkedIn Glow */
+.social-glow-btn.glow-linkedin {
+  border-color: rgba(14, 165, 233, 0.38);
+  color: #38bdf8;
+  box-shadow: 0 0 18px rgba(14, 165, 233, 0.25);
+}
+.social-glow-btn.glow-linkedin svg {
+  filter: drop-shadow(0 0 5px rgba(14, 165, 233, 0.7));
+}
+.social-glow-btn.glow-linkedin:hover {
+  border-color: #38bdf8;
+  color: #ffffff;
+  background: rgba(14, 165, 233, 0.18);
+  box-shadow: 0 0 30px rgba(14, 165, 233, 0.7), inset 0 0 12px rgba(14, 165, 233, 0.3);
+  transform: translateY(-3px) scale(1.1);
+}
+.social-glow-btn.glow-linkedin:hover svg {
+  filter: drop-shadow(0 0 9px #38bdf8);
+}
+
+/* WhatsApp Glow */
+.social-glow-btn.glow-whatsapp {
+  border-color: rgba(34, 197, 94, 0.38);
+  color: #34d399;
+  box-shadow: 0 0 18px rgba(34, 197, 94, 0.25);
+}
+.social-glow-btn.glow-whatsapp svg {
+  filter: drop-shadow(0 0 5px rgba(34, 197, 94, 0.7));
+}
+.social-glow-btn.glow-whatsapp:hover {
+  border-color: #22c55e;
+  color: #ffffff;
+  background: rgba(34, 197, 94, 0.18);
+  box-shadow: 0 0 30px rgba(34, 197, 94, 0.75), inset 0 0 12px rgba(34, 197, 94, 0.3);
+  transform: translateY(-3px) scale(1.1);
+}
+.social-glow-btn.glow-whatsapp:hover svg {
+  filter: drop-shadow(0 0 9px #22c55e);
+}
+
+/* Twitter / X Glow */
+.social-glow-btn.glow-twitter {
+  border-color: rgba(56, 189, 248, 0.38);
+  color: #38bdf8;
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.25);
+}
+.social-glow-btn.glow-twitter svg {
+  filter: drop-shadow(0 0 5px rgba(56, 189, 248, 0.7));
+}
+.social-glow-btn.glow-twitter:hover {
+  border-color: #38bdf8;
+  color: #ffffff;
+  background: rgba(56, 189, 248, 0.18);
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.75), inset 0 0 12px rgba(56, 189, 248, 0.3);
+  transform: translateY(-3px) scale(1.1);
+}
+.social-glow-btn.glow-twitter:hover svg {
+  filter: drop-shadow(0 0 9px #38bdf8);
+}
+
+/* Instagram Glow */
+.social-glow-btn.glow-instagram {
+  border-color: rgba(244, 63, 94, 0.38);
+  color: #fb7185;
+  box-shadow: 0 0 18px rgba(244, 63, 94, 0.26);
+}
+.social-glow-btn.glow-instagram svg {
+  filter: drop-shadow(0 0 5px rgba(244, 63, 94, 0.7));
+}
+.social-glow-btn.glow-instagram:hover {
+  border-color: #f43f5e;
+  color: #ffffff;
+  background: rgba(244, 63, 94, 0.18);
+  box-shadow: 0 0 30px rgba(244, 63, 94, 0.75), inset 0 0 12px rgba(244, 63, 94, 0.3);
+  transform: translateY(-3px) scale(1.1);
+}
+.social-glow-btn.glow-instagram:hover svg {
+  filter: drop-shadow(0 0 9px #f43f5e);
+}
+
+/* Facebook Glow */
+.social-glow-btn.glow-facebook {
+  border-color: rgba(59, 130, 246, 0.38);
+  color: #60a5fa;
+  box-shadow: 0 0 18px rgba(59, 130, 246, 0.25);
+}
+.social-glow-btn.glow-facebook svg {
+  filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.7));
+}
+.social-glow-btn.glow-facebook:hover {
+  border-color: #3b82f6;
+  color: #ffffff;
+  background: rgba(59, 130, 246, 0.18);
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.75), inset 0 0 12px rgba(59, 130, 246, 0.3);
+  transform: translateY(-3px) scale(1.1);
+}
+.social-glow-btn.glow-facebook:hover svg {
+  filter: drop-shadow(0 0 9px #3b82f6);
+}
+
+/* Gmail Glow */
+.social-glow-btn.glow-gmail {
+  border-color: rgba(239, 68, 68, 0.38);
+  color: #f87171;
+  box-shadow: 0 0 18px rgba(239, 68, 68, 0.25);
+}
+.social-glow-btn.glow-gmail svg {
+  filter: drop-shadow(0 0 5px rgba(239, 68, 68, 0.7));
+}
+.social-glow-btn.glow-gmail:hover {
+  border-color: #ef4444;
+  color: #ffffff;
+  background: rgba(239, 68, 68, 0.18);
+  box-shadow: 0 0 30px rgba(239, 68, 68, 0.75), inset 0 0 12px rgba(239, 68, 68, 0.3);
+  transform: translateY(-3px) scale(1.1);
+}
+.social-glow-btn.glow-gmail:hover svg {
+  filter: drop-shadow(0 0 9px #ef4444);
+}
+
+/* AI Assistant Soundwave Indicator */
+@keyframes soundWave {
+  0%, 100% { height: 4px; }
+  50% { height: 16px; }
+}
+
+.sound-wave-bar {
+  width: 3px;
+  background-color: #22d3ee;
+  border-radius: 9999px;
+  animation: soundWave 1.2s ease-in-out infinite;
+}
+.sound-wave-bar:nth-child(1) { animation-delay: 0.0s; }
+.sound-wave-bar:nth-child(2) { animation-delay: 0.2s; }
+.sound-wave-bar:nth-child(3) { animation-delay: 0.4s; }
+.sound-wave-bar:nth-child(4) { animation-delay: 0.1s; }
+
+/* AI Chat Custom Scrollbar */
+.ai-chat-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+.ai-chat-scroll::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.5);
+}
+.ai-chat-scroll::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+.ai-chat-scroll::-webkit-scrollbar-thumb:hover {
+  background: #06b6d4;
+}
+
+
